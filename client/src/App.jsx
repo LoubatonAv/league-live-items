@@ -46,6 +46,11 @@ const AP_MID_OPTIONS = [
   "Taliyah",
 ];
 
+const formatLabel = (value, fallback = "Not available") => {
+  if (!value) return fallback;
+  return String(value).replaceAll("_", " ");
+};
+
 const AdviceCard = ({ title, recommendation }) => {
   if (!recommendation) return null;
 
@@ -72,6 +77,20 @@ const SuggestedItemCard = ({ myPlayer, advice, onSelectItem }) => {
 
   const best = advice.nextItem.best;
   const alternatives = advice.nextItem.alternatives || [];
+  const component = advice.nextItem.component;
+  const suggestedPurchase = component?.suggestedPurchase;
+  const buildPath = advice.nextItem.buildPath;
+  const recommendationChange =
+    advice.recommendationChange || advice.nextItem.recommendationChange;
+  const gameContext = advice.nextItem.debug?.gameContext;
+  const enemyStyle =
+    advice.nextItem.debug?.teamStyle?.primary ||
+    advice.enemyAnalysis?.teamStyle?.primary;
+  const confidenceBand =
+    best.confidenceBand ||
+    (typeof best.confidence === "number"
+      ? `${Math.round(best.confidence)}% confidence`
+      : "Confidence unavailable");
 
   return (
     <div className="mb-6 rounded-2xl border border-red-900 bg-slate-900 p-5 shadow-lg">
@@ -84,7 +103,7 @@ const SuggestedItemCard = ({ myPlayer, advice, onSelectItem }) => {
         </div>
 
         <div className="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-300">
-          AP Mid Advisor
+          {advice.role || "Role unknown"} Advisor
         </div>
       </div>
 
@@ -119,10 +138,108 @@ const SuggestedItemCard = ({ myPlayer, advice, onSelectItem }) => {
           Best now →
         </div>
 
-        <div className="text-2xl font-bold text-red-300">{best.item}</div>
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="text-2xl font-bold text-red-300">
+            {best.item || "No recommendation available"}
+          </div>
+          <span className="rounded-full border border-red-800 bg-red-950/50 px-3 py-1 text-xs font-semibold text-red-200">
+            {confidenceBand}
+          </span>
+        </div>
 
-        <p className="mt-2 text-sm leading-6 text-slate-300">{best.reason}</p>
+        <p className="mt-2 text-sm leading-6 text-slate-300">
+          {best.reason || "No recommendation reason is available."}
+        </p>
       </div>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="rounded-xl border border-slate-800 bg-slate-950 p-3">
+          <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Suggested purchase
+          </div>
+          <div className="mt-1 font-semibold text-white">
+            {suggestedPurchase?.name || "No affordable component"}
+          </div>
+          <div className="mt-1 text-xs text-slate-400">
+            {suggestedPurchase
+              ? `${suggestedPurchase.cost ?? "?"} gold`
+              : component?.reason || "Component data unavailable"}
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-slate-800 bg-slate-950 p-3">
+          <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Current target
+          </div>
+          <div className="mt-1 font-semibold text-white">
+            {buildPath?.currentTargetItem || best.item || "Not available"}
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-slate-800 bg-slate-950 p-3">
+          <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Next target
+          </div>
+          <div className="mt-1 font-semibold text-white">
+            {buildPath?.nextTargetItem || "Final or situational slot"}
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-slate-800 bg-slate-950 p-3">
+          <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Enemy team style
+          </div>
+          <div className="mt-1 font-semibold capitalize text-white">
+            {formatLabel(enemyStyle)}
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-slate-800 bg-slate-950 p-3">
+          <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Game phase
+          </div>
+          <div className="mt-1 font-semibold capitalize text-white">
+            {formatLabel(advice.gamePhase || gameContext?.phase)}
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-slate-800 bg-slate-950 p-3">
+          <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Current gold
+          </div>
+          <div className="mt-1 font-semibold text-white">
+            {advice.currentGold ?? gameContext?.currentGold ?? "Not available"}
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-slate-800 bg-slate-950 p-3">
+          <div className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            KDA
+          </div>
+          <div className="mt-1 font-semibold text-white">
+            {advice.kills ?? gameContext?.kills ?? "-"} /{" "}
+            {advice.deaths ?? gameContext?.deaths ?? "-"} /{" "}
+            {advice.assists ?? gameContext?.assists ?? "-"}
+          </div>
+        </div>
+      </div>
+
+      {recommendationChange?.changed && (
+        <div className="mt-4 rounded-xl border border-amber-800 bg-amber-950/30 p-4">
+          <div className="text-sm font-semibold text-amber-200">
+            What changed?
+          </div>
+          <div className="mt-1 text-sm text-slate-300">
+            {recommendationChange.previousItem || "Previous item"} →{" "}
+            {recommendationChange.currentItem || best.item}
+          </div>
+          <ul className="mt-2 space-y-1 text-sm text-slate-400">
+            {(recommendationChange.reasons || []).map((reason) => (
+              <li key={reason}>• {reason}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {alternatives.length > 0 && (
         <div className="mt-4 grid gap-3 md:grid-cols-2">
@@ -140,10 +257,23 @@ const SuggestedItemCard = ({ myPlayer, advice, onSelectItem }) => {
               </div>
 
               <p className="mt-2 text-sm leading-6 text-slate-400">
-                {option.reason}
+                {option.reason || "Alternative reason unavailable."}
               </p>
+
+              <div className="mt-2 text-xs text-slate-500">
+                {option.confidenceBand ||
+                  (typeof option.confidence === "number"
+                    ? `${Math.round(option.confidence)}% confidence`
+                    : "Confidence unavailable")}
+              </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {alternatives.length === 0 && (
+        <div className="mt-4 rounded-xl border border-slate-800 bg-slate-950 p-4 text-sm text-slate-400">
+          No alternative recommendations are currently available.
         </div>
       )}
 
