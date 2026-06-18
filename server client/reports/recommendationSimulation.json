@@ -1,0 +1,186 @@
+{
+  "generatedAt": "2026-06-18T16:55:59.088Z",
+  "simulationCount": 20,
+  "simulations": [
+    {
+      "champion": "Ahri",
+      "role": "MIDDLE",
+      "bestItem": "Malignance",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Malignance"
+    },
+    {
+      "champion": "Amumu",
+      "role": "JUNGLE",
+      "bestItem": "Sunfire Aegis",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Sunfire Aegis"
+    },
+    {
+      "champion": "Blitzcrank",
+      "role": "UTILITY",
+      "bestItem": "Celestial Opposition",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Celestial Opposition"
+    },
+    {
+      "champion": "Briar",
+      "role": "JUNGLE",
+      "bestItem": "Stridebreaker",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Stridebreaker"
+    },
+    {
+      "champion": "Diana",
+      "role": "JUNGLE",
+      "bestItem": "Nashor's Tooth",
+      "confidence": 96,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Nashor's Tooth"
+    },
+    {
+      "champion": "Evelynn",
+      "role": "JUNGLE",
+      "bestItem": "Lich Bane",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Lich Bane"
+    },
+    {
+      "champion": "Hecarim",
+      "role": "JUNGLE",
+      "bestItem": "Eclipse",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Eclipse"
+    },
+    {
+      "champion": "LeBlanc",
+      "role": "MIDDLE",
+      "bestItem": "Luden's Companion",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Luden's Companion"
+    },
+    {
+      "champion": "Leona",
+      "role": "UTILITY",
+      "bestItem": "Celestial Opposition",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Celestial Opposition"
+    },
+    {
+      "champion": "Lulu",
+      "role": "UTILITY",
+      "bestItem": "Dream Maker",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Dream Maker"
+    },
+    {
+      "champion": "Lux",
+      "role": "MIDDLE",
+      "bestItem": "Luden's Companion",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Luden's Companion"
+    },
+    {
+      "champion": "Nami",
+      "role": "UTILITY",
+      "bestItem": "Dream Maker",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Dream Maker"
+    },
+    {
+      "champion": "Nautilus",
+      "role": "UTILITY",
+      "bestItem": "Celestial Opposition",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Celestial Opposition"
+    },
+    {
+      "champion": "Nocturne",
+      "role": "JUNGLE",
+      "bestItem": "Stridebreaker",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Stridebreaker"
+    },
+    {
+      "champion": "Orianna",
+      "role": "MIDDLE",
+      "bestItem": "Luden's Companion",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Luden's Companion"
+    },
+    {
+      "champion": "Syndra",
+      "role": "MIDDLE",
+      "bestItem": "Luden's Companion",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Luden's Companion"
+    },
+    {
+      "champion": "Thresh",
+      "role": "UTILITY",
+      "bestItem": "Celestial Opposition",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Celestial Opposition"
+    },
+    {
+      "champion": "Veigar",
+      "role": "MIDDLE",
+      "bestItem": "Rod of Ages",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Rod of Ages"
+    },
+    {
+      "champion": "Viego",
+      "role": "JUNGLE",
+      "bestItem": "Kraken Slayer",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Kraken Slayer"
+    },
+    {
+      "champion": "Viktor",
+      "role": "MIDDLE",
+      "bestItem": "Luden's Companion",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "buildPhase": "early_core",
+      "targetItem": "Luden's Companion"
+    }
+  ]
+}

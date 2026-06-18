@@ -1,0 +1,15 @@
+{
+  "name": "shield_comp",
+  "description": "Leona chooses team utility into repeated shield effects.",
+  "champion": "Leona",
+  "role": "UTILITY",
+  "ownedItems": ["Celestial Opposition", "Locket of the Iron Solari"],
+  "enemyPlayers": [
+    { "champion": "Vi", "items": ["Sterak's Gage", "Maw of Malmortius"] },
+    { "champion": "Nautilus", "items": ["Locket of the Iron Solari"] },
+    { "champion": "Ornn", "items": [] },
+    { "champion": "Jinx", "items": ["Immortal Shieldbow"] },
+    { "champion": "Syndra", "items": ["Seraph's Embrace"] }
+  ],
+  "expectedRecommendationCandidates": ["Knight's Vow", "Zeke's Convergence"]
+}

@@ -1,0 +1,188 @@
+{
+  "generatedAt": "2026-06-18T16:52:29.273Z",
+  "championCount": 20,
+  "roleCount": 3,
+  "buildCount": 20,
+  "lastUpdatedDates": [
+    "2026-06-18T16:52:21.689Z"
+  ],
+  "schemaVersions": {
+    "builds": "1.0.0",
+    "championMetadata": "1.0.0"
+  },
+  "validationStatus": "valid",
+  "coverage": {
+    "supportedChampions": [
+      "Ahri",
+      "Amumu",
+      "Blitzcrank",
+      "Briar",
+      "Diana",
+      "Evelynn",
+      "Hecarim",
+      "LeBlanc",
+      "Leona",
+      "Lulu",
+      "Lux",
+      "Nami",
+      "Nautilus",
+      "Nocturne",
+      "Orianna",
+      "Syndra",
+      "Thresh",
+      "Veigar",
+      "Viego",
+      "Viktor"
+    ],
+    "supportedRoles": [
+      "JUNGLE",
+      "MIDDLE",
+      "UTILITY"
+    ],
+    "missingChampions": [],
+    "missingRoles": [
+      "TOP",
+      "BOTTOM"
+    ],
+    "roleBuildCounts": {
+      "TOP": 0,
+      "JUNGLE": 7,
+      "MIDDLE": 7,
+      "BOTTOM": 0,
+      "UTILITY": 6
+    }
+  },
+  "validation": {
+    "valid": true,
+    "errors": [],
+    "warnings": [],
+    "builds": [
+      {
+        "champion": "Ahri",
+        "role": "MIDDLE",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Amumu",
+        "role": "JUNGLE",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Blitzcrank",
+        "role": "UTILITY",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Briar",
+        "role": "JUNGLE",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Diana",
+        "role": "JUNGLE",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Evelynn",
+        "role": "JUNGLE",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Hecarim",
+        "role": "JUNGLE",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "LeBlanc",
+        "role": "MIDDLE",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Leona",
+        "role": "UTILITY",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Lulu",
+        "role": "UTILITY",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Lux",
+        "role": "MIDDLE",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Nami",
+        "role": "UTILITY",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Nautilus",
+        "role": "UTILITY",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Nocturne",
+        "role": "JUNGLE",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Orianna",
+        "role": "MIDDLE",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Syndra",
+        "role": "MIDDLE",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Thresh",
+        "role": "UTILITY",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Veigar",
+        "role": "MIDDLE",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Viego",
+        "role": "JUNGLE",
+        "valid": true,
+        "errors": []
+      },
+      {
+        "champion": "Viktor",
+        "role": "MIDDLE",
+        "valid": true,
+        "errors": []
+      }
+    ],
+    "summary": {
+      "championCount": 20,
+      "buildCount": 20,
+      "validBuildCount": 20,
+      "invalidBuildCount": 0
+    }
+  }
+}

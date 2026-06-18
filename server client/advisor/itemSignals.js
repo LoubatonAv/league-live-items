@@ -95,6 +95,17 @@ const sumItems = (items, selector) => {
   return items.reduce((sum, item) => sum + selector(item), 0);
 };
 
+const getMatchingItemNames = (items, predicate) => {
+  return [
+    ...new Set(
+      items
+        .filter(predicate)
+        .map(getItemName)
+        .filter(Boolean),
+    ),
+  ];
+};
+
 const getItemSignals = (enemyPlayers = []) => {
   const items = flattenEnemyItems(enemyPlayers);
 
@@ -122,6 +133,10 @@ const getItemSignals = (enemyPlayers = []) => {
     totalMR,
     totalHP,
     totalArmor,
+    mrItemNames: getMatchingItemNames(items, isMRItem),
+    hpItemNames: getMatchingItemNames(items, isHPItem),
+    shieldItemNames: getMatchingItemNames(items, isShieldItem),
+    armorItemNames: getMatchingItemNames(items, isArmorItem),
   };
 };
 

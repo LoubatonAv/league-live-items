@@ -1,0 +1,15 @@
+{
+  "name": "dive_comp",
+  "description": "Evelynn needs to survive heavy engage and dive.",
+  "champion": "Evelynn",
+  "role": "JUNGLE",
+  "ownedItems": ["Lich Bane", "Sorcerer's Shoes", "Shadowflame"],
+  "enemyPlayers": [
+    { "champion": "Vi", "items": ["Sterak's Gage"] },
+    { "champion": "Nautilus", "items": ["Locket of the Iron Solari"] },
+    { "champion": "Ornn", "items": ["Sunfire Aegis"] },
+    { "champion": "Ahri", "items": [] },
+    { "champion": "Jinx", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Zhonya's Hourglass", "Banshee's Veil", "Rabadon's Deathcap"]
+}

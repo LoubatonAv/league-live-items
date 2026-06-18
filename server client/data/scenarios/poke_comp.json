@@ -1,0 +1,15 @@
+{
+  "name": "poke_comp",
+  "description": "Lulu into repeated ranged pressure and pick tools.",
+  "champion": "Lulu",
+  "role": "UTILITY",
+  "ownedItems": ["Dream Maker", "Moonstone Renewer", "Ardent Censer"],
+  "enemyPlayers": [
+    { "champion": "Syndra", "items": ["Luden's Companion"] },
+    { "champion": "Ahri", "items": ["Horizon Focus"] },
+    { "champion": "Jinx", "items": ["Rapid Firecannon"] },
+    { "champion": "Lux", "items": ["Luden's Companion"] },
+    { "champion": "Xerath", "items": ["Horizon Focus"] }
+  ],
+  "expectedRecommendationCandidates": ["Mikael's Blessing", "Redemption"]
+}

@@ -1,0 +1,932 @@
+{
+  "schemaVersion": "1.0.0",
+  "lastUpdated": "2026-06-18T16:52:21.689Z",
+  "source": "manual-seed",
+  "sourceVersion": "seed-1",
+  "champions": {
+    "Ahri": {
+      "MIDDLE": {
+        "role": "MIDDLE",
+        "archetype": "mobile_burst",
+        "preferredStats": [
+          "ability_power",
+          "ability_haste",
+          "magic_penetration"
+        ],
+        "avoidedStats": [
+          "attack_speed",
+          "critical_strike"
+        ],
+        "preferredPlaystyle": [
+          "pick",
+          "mobility",
+          "utility"
+        ],
+        "core": [
+          "Malignance",
+          "Horizon Focus",
+          "Rabadon's Deathcap",
+          "Void Staff"
+        ],
+        "situational": [
+          "Zhonya's Hourglass",
+          "Banshee's Veil",
+          "Shadowflame",
+          "Cryptbloom"
+        ],
+        "avoid": [
+          "Rylai's Crystal Scepter",
+          "Nashor's Tooth"
+        ],
+        "synergy": {
+          "Malignance": {
+            "score": 14,
+            "reason": "Malignance supports Ahri's ultimate-driven pick pattern."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Ahri"
+      }
+    },
+    "Amumu": {
+      "JUNGLE": {
+        "role": "JUNGLE",
+        "archetype": "tank_engage_jungle",
+        "preferredStats": [
+          "health",
+          "armor",
+          "magic_resist",
+          "ability_haste"
+        ],
+        "avoidedStats": [
+          "critical_strike"
+        ],
+        "preferredPlaystyle": [
+          "engage",
+          "wombo",
+          "front_to_back"
+        ],
+        "core": [
+          "Sunfire Aegis",
+          "Liandry's Torment",
+          "Abyssal Mask",
+          "Thornmail"
+        ],
+        "situational": [
+          "Frozen Heart",
+          "Kaenic Rookern",
+          "Jak'Sho, The Protean",
+          "Zhonya's Hourglass"
+        ],
+        "avoid": [
+          "Lich Bane",
+          "Stormsurge"
+        ],
+        "synergy": {
+          "Sunfire Aegis": {
+            "score": 14,
+            "reason": "Sunfire supports Amumu's extended close-range fights."
+          },
+          "Abyssal Mask": {
+            "score": 12,
+            "reason": "Abyssal Mask amplifies magic damage around Amumu's engage."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Amumu"
+      }
+    },
+    "Blitzcrank": {
+      "UTILITY": {
+        "role": "UTILITY",
+        "archetype": "tank_engage_support",
+        "preferredStats": [
+          "health",
+          "armor",
+          "magic_resist",
+          "ability_haste"
+        ],
+        "avoidedStats": [
+          "critical_strike",
+          "attack_speed"
+        ],
+        "preferredPlaystyle": [
+          "pick",
+          "engage",
+          "roam"
+        ],
+        "core": [
+          "Celestial Opposition",
+          "Locket of the Iron Solari",
+          "Zeke's Convergence",
+          "Knight's Vow"
+        ],
+        "situational": [
+          "Frozen Heart",
+          "Abyssal Mask",
+          "Kaenic Rookern",
+          "Shurelya's Battlesong"
+        ],
+        "avoid": [
+          "Lich Bane",
+          "Stormsurge"
+        ],
+        "synergy": {
+          "Shurelya's Battlesong": {
+            "score": 12,
+            "reason": "Shurelya helps Blitzcrank create hook angles and force picks."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Blitzcrank"
+      }
+    },
+    "Briar": {
+      "JUNGLE": {
+        "role": "JUNGLE",
+        "archetype": "ad_diver",
+        "preferredStats": [
+          "attack_damage",
+          "health",
+          "ability_haste"
+        ],
+        "avoidedStats": [
+          "ability_power",
+          "critical_strike"
+        ],
+        "preferredPlaystyle": [
+          "dive",
+          "skirmish",
+          "sustain"
+        ],
+        "core": [
+          "Stridebreaker",
+          "Sundered Sky",
+          "Black Cleaver",
+          "Sterak's Gage"
+        ],
+        "situational": [
+          "Death's Dance",
+          "Spirit Visage",
+          "Maw of Malmortius",
+          "Guardian Angel"
+        ],
+        "avoid": [],
+        "synergy": {
+          "Stridebreaker": {
+            "score": 12,
+            "reason": "Stridebreaker helps Briar stay in range after committing."
+          },
+          "Sundered Sky": {
+            "score": 10,
+            "reason": "Sundered Sky supports Briar's repeated melee skirmishes."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Briar"
+      }
+    },
+    "Diana": {
+      "JUNGLE": {
+        "role": "JUNGLE",
+        "archetype": "ap_diver_jungle",
+        "preferredStats": [
+          "ability_power",
+          "attack_speed",
+          "armor"
+        ],
+        "avoidedStats": [
+          "critical_strike"
+        ],
+        "preferredPlaystyle": [
+          "dive",
+          "teamfight",
+          "burst"
+        ],
+        "core": [
+          "Nashor's Tooth",
+          "Zhonya's Hourglass",
+          "Rabadon's Deathcap",
+          "Void Staff"
+        ],
+        "situational": [
+          "Shadowflame",
+          "Banshee's Veil",
+          "Liandry's Torment",
+          "Cryptbloom"
+        ],
+        "avoid": [
+          "Rylai's Crystal Scepter"
+        ],
+        "synergy": {
+          "Nashor's Tooth": {
+            "score": 16,
+            "reason": "Nashor's Tooth supports Diana's passive and extended clears."
+          },
+          "Zhonya's Hourglass": {
+            "score": 12,
+            "reason": "Zhonya protects Diana after a committed teamfight engage."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Diana"
+      }
+    },
+    "Evelynn": {
+      "JUNGLE": {
+        "role": "JUNGLE",
+        "archetype": "ap_assassin_jungle",
+        "preferredStats": [
+          "ability_power",
+          "magic_penetration",
+          "movement_speed"
+        ],
+        "avoidedStats": [
+          "attack_speed",
+          "critical_strike"
+        ],
+        "preferredPlaystyle": [
+          "assassination",
+          "pick",
+          "snowball"
+        ],
+        "core": [
+          "Lich Bane",
+          "Sorcerer's Shoes",
+          "Shadowflame",
+          "Rabadon's Deathcap",
+          "Void Staff"
+        ],
+        "situational": [
+          "Banshee's Veil",
+          "Zhonya's Hourglass",
+          "Cryptbloom",
+          "Mejai's Soulstealer"
+        ],
+        "avoid": [
+          "Liandry's Torment",
+          "Rylai's Crystal Scepter",
+          "Cosmic Drive"
+        ],
+        "synergy": {
+          "Lich Bane": {
+            "score": 18,
+            "reason": "Lich Bane matches Evelynn's empowered assassination combo."
+          },
+          "Mejai's Soulstealer": {
+            "score": 18,
+            "condition": "snowball",
+            "reason": "Mejai is valuable when Evelynn has a credible snowball state."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Evelynn"
+      }
+    },
+    "Hecarim": {
+      "JUNGLE": {
+        "role": "JUNGLE",
+        "archetype": "ad_diver",
+        "preferredStats": [
+          "attack_damage",
+          "ability_haste",
+          "movement_speed"
+        ],
+        "avoidedStats": [
+          "ability_power",
+          "critical_strike"
+        ],
+        "preferredPlaystyle": [
+          "dive",
+          "skirmish",
+          "teamfight"
+        ],
+        "core": [
+          "Eclipse",
+          "Black Cleaver",
+          "Spear of Shojin",
+          "Sterak's Gage"
+        ],
+        "situational": [
+          "Death's Dance",
+          "Maw of Malmortius",
+          "Guardian Angel",
+          "Serylda's Grudge"
+        ],
+        "avoid": [
+          "Infinity Edge"
+        ],
+        "synergy": {
+          "Spear of Shojin": {
+            "score": 14,
+            "reason": "Shojin supports Hecarim's repeated ability rotations."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Hecarim"
+      }
+    },
+    "LeBlanc": {
+      "MIDDLE": {
+        "role": "MIDDLE",
+        "archetype": "mobile_burst",
+        "preferredStats": [
+          "ability_power",
+          "magic_penetration",
+          "ability_haste"
+        ],
+        "avoidedStats": [
+          "attack_speed",
+          "critical_strike"
+        ],
+        "preferredPlaystyle": [
+          "burst",
+          "mobility",
+          "pick"
+        ],
+        "core": [
+          "Luden's Companion",
+          "Shadowflame",
+          "Rabadon's Deathcap",
+          "Void Staff"
+        ],
+        "situational": [
+          "Banshee's Veil",
+          "Stormsurge",
+          "Cryptbloom",
+          "Lich Bane"
+        ],
+        "avoid": [
+          "Liandry's Torment",
+          "Rylai's Crystal Scepter",
+          "Cosmic Drive"
+        ],
+        "synergy": {
+          "Lich Bane": {
+            "score": 14,
+            "reason": "LeBlanc converts spellblade procs into reliable burst."
+          },
+          "Stormsurge": {
+            "score": 12,
+            "reason": "Stormsurge supports LeBlanc's short burst-and-exit pattern."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "LeBlanc"
+      }
+    },
+    "Leona": {
+      "UTILITY": {
+        "role": "UTILITY",
+        "archetype": "tank_engage_support",
+        "preferredStats": [
+          "health",
+          "armor",
+          "magic_resist",
+          "ability_haste"
+        ],
+        "avoidedStats": [
+          "critical_strike",
+          "attack_speed"
+        ],
+        "preferredPlaystyle": [
+          "engage",
+          "front_to_back",
+          "protect"
+        ],
+        "core": [
+          "Celestial Opposition",
+          "Locket of the Iron Solari",
+          "Knight's Vow",
+          "Zeke's Convergence"
+        ],
+        "situational": [
+          "Thornmail",
+          "Frozen Heart",
+          "Kaenic Rookern",
+          "Abyssal Mask"
+        ],
+        "avoid": [],
+        "synergy": {
+          "Locket of the Iron Solari": {
+            "score": 16,
+            "reason": "Locket complements Leona's team-first engage pattern."
+          },
+          "Knight's Vow": {
+            "score": 14,
+            "reason": "Knight's Vow protects the carry Leona creates space for."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Leona"
+      }
+    },
+    "Lulu": {
+      "UTILITY": {
+        "role": "UTILITY",
+        "archetype": "enchanter_support",
+        "preferredStats": [
+          "heal_shield_power",
+          "mana_regen",
+          "ability_haste"
+        ],
+        "avoidedStats": [
+          "critical_strike",
+          "attack_damage"
+        ],
+        "preferredPlaystyle": [
+          "protect",
+          "enchant",
+          "disengage"
+        ],
+        "core": [
+          "Dream Maker",
+          "Moonstone Renewer",
+          "Ardent Censer",
+          "Mikael's Blessing"
+        ],
+        "situational": [
+          "Redemption",
+          "Staff of Flowing Water",
+          "Shurelya's Battlesong",
+          "Locket of the Iron Solari"
+        ],
+        "avoid": [
+          "Lich Bane",
+          "Stormsurge"
+        ],
+        "synergy": {
+          "Ardent Censer": {
+            "score": 16,
+            "reason": "Ardent Censer amplifies Lulu's protection of attack-speed carries."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Lulu"
+      }
+    },
+    "Lux": {
+      "MIDDLE": {
+        "role": "MIDDLE",
+        "archetype": "poke_mage",
+        "preferredStats": [
+          "ability_power",
+          "magic_penetration",
+          "ability_haste"
+        ],
+        "avoidedStats": [
+          "attack_speed",
+          "critical_strike"
+        ],
+        "preferredPlaystyle": [
+          "poke",
+          "pick",
+          "burst"
+        ],
+        "core": [
+          "Luden's Companion",
+          "Horizon Focus",
+          "Rabadon's Deathcap",
+          "Void Staff"
+        ],
+        "situational": [
+          "Shadowflame",
+          "Banshee's Veil",
+          "Zhonya's Hourglass",
+          "Cryptbloom"
+        ],
+        "avoid": [
+          "Rylai's Crystal Scepter",
+          "Nashor's Tooth"
+        ],
+        "synergy": {
+          "Horizon Focus": {
+            "score": 16,
+            "reason": "Horizon Focus rewards Lux's long-range spell hits."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Lux"
+      }
+    },
+    "Nami": {
+      "UTILITY": {
+        "role": "UTILITY",
+        "archetype": "enchanter_support",
+        "preferredStats": [
+          "heal_shield_power",
+          "mana_regen",
+          "ability_haste"
+        ],
+        "avoidedStats": [
+          "critical_strike",
+          "attack_damage"
+        ],
+        "preferredPlaystyle": [
+          "enchant",
+          "poke",
+          "engage"
+        ],
+        "core": [
+          "Dream Maker",
+          "Imperial Mandate",
+          "Moonstone Renewer",
+          "Redemption"
+        ],
+        "situational": [
+          "Mikael's Blessing",
+          "Staff of Flowing Water",
+          "Ardent Censer",
+          "Shurelya's Battlesong"
+        ],
+        "avoid": [
+          "Lich Bane",
+          "Stormsurge"
+        ],
+        "synergy": {
+          "Imperial Mandate": {
+            "score": 16,
+            "reason": "Imperial Mandate rewards Nami's repeated slows and crowd control."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Nami"
+      }
+    },
+    "Nautilus": {
+      "UTILITY": {
+        "role": "UTILITY",
+        "archetype": "tank_engage_support",
+        "preferredStats": [
+          "health",
+          "armor",
+          "magic_resist",
+          "ability_haste"
+        ],
+        "avoidedStats": [
+          "critical_strike",
+          "attack_speed"
+        ],
+        "preferredPlaystyle": [
+          "engage",
+          "pick",
+          "wombo"
+        ],
+        "core": [
+          "Celestial Opposition",
+          "Locket of the Iron Solari",
+          "Knight's Vow",
+          "Zeke's Convergence"
+        ],
+        "situational": [
+          "Thornmail",
+          "Frozen Heart",
+          "Kaenic Rookern",
+          "Abyssal Mask"
+        ],
+        "avoid": [
+          "Rylai's Crystal Scepter"
+        ],
+        "synergy": {
+          "Zeke's Convergence": {
+            "score": 14,
+            "reason": "Zeke's Convergence rewards Nautilus for starting fights with his ultimate."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Nautilus"
+      }
+    },
+    "Nocturne": {
+      "JUNGLE": {
+        "role": "JUNGLE",
+        "archetype": "ad_diver",
+        "preferredStats": [
+          "attack_damage",
+          "attack_speed",
+          "ability_haste"
+        ],
+        "avoidedStats": [
+          "ability_power",
+          "critical_strike"
+        ],
+        "preferredPlaystyle": [
+          "dive",
+          "pick",
+          "split"
+        ],
+        "core": [
+          "Stridebreaker",
+          "Experimental Hexplate",
+          "Black Cleaver",
+          "Sterak's Gage"
+        ],
+        "situational": [
+          "Death's Dance",
+          "Maw of Malmortius",
+          "Guardian Angel",
+          "Edge of Night"
+        ],
+        "avoid": [
+          "Infinity Edge"
+        ],
+        "synergy": {
+          "Experimental Hexplate": {
+            "score": 16,
+            "reason": "Experimental Hexplate supports Nocturne's ultimate-driven all-ins."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Nocturne"
+      }
+    },
+    "Orianna": {
+      "MIDDLE": {
+        "role": "MIDDLE",
+        "archetype": "burst_control",
+        "preferredStats": [
+          "ability_power",
+          "mana",
+          "ability_haste"
+        ],
+        "avoidedStats": [
+          "attack_speed",
+          "critical_strike"
+        ],
+        "preferredPlaystyle": [
+          "control",
+          "teamfight",
+          "scaling"
+        ],
+        "core": [
+          "Luden's Companion",
+          "Archangel's Staff",
+          "Rabadon's Deathcap",
+          "Void Staff"
+        ],
+        "situational": [
+          "Zhonya's Hourglass",
+          "Banshee's Veil",
+          "Cryptbloom",
+          "Liandry's Torment"
+        ],
+        "avoid": [
+          "Lich Bane",
+          "Nashor's Tooth"
+        ],
+        "synergy": {
+          "Archangel's Staff": {
+            "score": 14,
+            "reason": "Archangel's Staff supports Orianna's mana-intensive control pattern."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Orianna"
+      }
+    },
+    "Syndra": {
+      "MIDDLE": {
+        "role": "MIDDLE",
+        "archetype": "burst_control",
+        "preferredStats": [
+          "ability_power",
+          "magic_penetration",
+          "ability_haste"
+        ],
+        "avoidedStats": [
+          "attack_speed",
+          "critical_strike"
+        ],
+        "preferredPlaystyle": [
+          "burst",
+          "control",
+          "pick"
+        ],
+        "core": [
+          "Luden's Companion",
+          "Shadowflame",
+          "Rabadon's Deathcap",
+          "Void Staff"
+        ],
+        "situational": [
+          "Banshee's Veil",
+          "Zhonya's Hourglass",
+          "Horizon Focus",
+          "Cryptbloom"
+        ],
+        "avoid": [
+          "Rylai's Crystal Scepter",
+          "Nashor's Tooth"
+        ],
+        "synergy": {
+          "Rabadon's Deathcap": {
+            "score": 14,
+            "reason": "Deathcap amplifies Syndra's high-ratio burst."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Syndra"
+      }
+    },
+    "Thresh": {
+      "UTILITY": {
+        "role": "UTILITY",
+        "archetype": "tank_utility_support",
+        "preferredStats": [
+          "health",
+          "armor",
+          "magic_resist",
+          "ability_haste"
+        ],
+        "avoidedStats": [
+          "critical_strike"
+        ],
+        "preferredPlaystyle": [
+          "pick",
+          "protect",
+          "utility"
+        ],
+        "core": [
+          "Celestial Opposition",
+          "Locket of the Iron Solari",
+          "Knight's Vow",
+          "Zeke's Convergence"
+        ],
+        "situational": [
+          "Mikael's Blessing",
+          "Redemption",
+          "Frozen Heart",
+          "Abyssal Mask"
+        ],
+        "avoid": [
+          "Rylai's Crystal Scepter"
+        ],
+        "synergy": {
+          "Locket of the Iron Solari": {
+            "score": 12,
+            "reason": "Locket adds team protection to Thresh's utility toolkit."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Thresh"
+      }
+    },
+    "Veigar": {
+      "MIDDLE": {
+        "role": "MIDDLE",
+        "archetype": "scaling_burst",
+        "preferredStats": [
+          "ability_power",
+          "mana",
+          "ability_haste"
+        ],
+        "avoidedStats": [
+          "attack_speed",
+          "critical_strike"
+        ],
+        "preferredPlaystyle": [
+          "scaling",
+          "control",
+          "burst"
+        ],
+        "core": [
+          "Rod of Ages",
+          "Seraph's Embrace",
+          "Rabadon's Deathcap",
+          "Void Staff"
+        ],
+        "situational": [
+          "Zhonya's Hourglass",
+          "Banshee's Veil",
+          "Cryptbloom",
+          "Shadowflame"
+        ],
+        "avoid": [
+          "Liandry's Torment",
+          "Rylai's Crystal Scepter"
+        ],
+        "synergy": {
+          "Rod of Ages": {
+            "score": 16,
+            "reason": "Rod of Ages supports Veigar's scaling and durability."
+          },
+          "Seraph's Embrace": {
+            "score": 14,
+            "reason": "Seraph rewards Veigar's mana-heavy scaling pattern."
+          },
+          "Rabadon's Deathcap": {
+            "score": 18,
+            "reason": "Deathcap strongly multiplies Veigar's accumulated ability power."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Veigar"
+      }
+    },
+    "Viego": {
+      "JUNGLE": {
+        "role": "JUNGLE",
+        "archetype": "ad_diver",
+        "preferredStats": [
+          "attack_damage",
+          "attack_speed",
+          "critical_strike"
+        ],
+        "avoidedStats": [
+          "ability_power"
+        ],
+        "preferredPlaystyle": [
+          "skirmish",
+          "reset",
+          "front_to_back"
+        ],
+        "core": [
+          "Kraken Slayer",
+          "Sundered Sky",
+          "Sterak's Gage",
+          "Death's Dance"
+        ],
+        "situational": [
+          "Blade of The Ruined King",
+          "Wit's End",
+          "Maw of Malmortius",
+          "Guardian Angel"
+        ],
+        "avoid": [
+          "Infinity Edge"
+        ],
+        "synergy": {
+          "Kraken Slayer": {
+            "score": 14,
+            "reason": "Kraken Slayer supports Viego's repeated on-hit skirmishing."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Viego"
+      }
+    },
+    "Viktor": {
+      "MIDDLE": {
+        "role": "MIDDLE",
+        "archetype": "scaling_control",
+        "preferredStats": [
+          "ability_power",
+          "ability_haste",
+          "magic_penetration"
+        ],
+        "avoidedStats": [
+          "critical_strike"
+        ],
+        "preferredPlaystyle": [
+          "scaling",
+          "control",
+          "front_to_back"
+        ],
+        "core": [
+          "Luden's Companion",
+          "Lich Bane",
+          "Rabadon's Deathcap",
+          "Void Staff"
+        ],
+        "situational": [
+          "Zhonya's Hourglass",
+          "Banshee's Veil",
+          "Liandry's Torment",
+          "Cryptbloom"
+        ],
+        "avoid": [
+          "Rylai's Crystal Scepter",
+          "Nashor's Tooth"
+        ],
+        "synergy": {
+          "Lich Bane": {
+            "score": 12,
+            "reason": "Lich Bane complements Viktor's empowered basic-attack windows."
+          }
+        },
+        "source": "seed",
+        "sourceVersion": "seed-1",
+        "championName": "Viktor"
+      }
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "generatedAt": "2026-06-18T17:00:24.363Z",
+  "summary": {
+    "scenarioCount": 6,
+    "passed": 6,
+    "failed": 0,
+    "stable": 6,
+    "unstable": 0,
+    "confidenceFlags": 0,
+    "accuracy": 100
+  },
+  "regression": [
+    {
+      "champion": "LeBlanc",
+      "covered": true,
+      "passed": true,
+      "scenarios": [
+        "heavy_mr"
+      ]
+    },
+    {
+      "champion": "Veigar",
+      "covered": true,
+      "passed": true,
+      "scenarios": [
+        "squishy_comp"
+      ]
+    },
+    {
+      "champion": "Briar",
+      "covered": true,
+      "passed": true,
+      "scenarios": [
+        "heavy_hp"
+      ]
+    },
+    {
+      "champion": "Evelynn",
+      "covered": true,
+      "passed": true,
+      "scenarios": [
+        "dive_comp"
+      ]
+    },
+    {
+      "champion": "Leona",
+      "covered": true,
+      "passed": true,
+      "scenarios": [
+        "shield_comp"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "scenario": "dive_comp",
+      "description": "Evelynn needs to survive heavy engage and dive.",
+      "champion": "Evelynn",
+      "role": "JUNGLE",
+      "expected": [
+        "Zhonya's Hourglass",
+        "Banshee's Veil",
+        "Rabadon's Deathcap"
+      ],
+      "actual": "Banshee's Veil",
+      "confidence": 66,
+      "confidenceBand": "Medium",
+      "pass": true,
+      "stable": true,
+      "perturbedActual": "Banshee's Veil",
+      "confidenceInconsistent": false,
+      "enemyStyle": "front_to_back",
+      "buildPhase": "adaptive_late_build",
+      "targetItem": "Banshee's Veil"
+    },
+    {
+      "scenario": "heavy_hp",
+      "description": "Briar into a high-health frontline after two core items.",
+      "champion": "Briar",
+      "role": "JUNGLE",
+      "expected": [
+        "Black Cleaver",
+        "Sterak's Gage"
+      ],
+      "actual": "Black Cleaver",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "pass": true,
+      "stable": true,
+      "perturbedActual": "Black Cleaver",
+      "confidenceInconsistent": false,
+      "enemyStyle": "front_to_back",
+      "buildPhase": "core_completion",
+      "targetItem": "Black Cleaver"
+    },
+    {
+      "scenario": "heavy_mr",
+      "description": "Late LeBlanc build into multiple completed MR items.",
+      "champion": "LeBlanc",
+      "role": "MIDDLE",
+      "expected": [
+        "Void Staff",
+        "Cryptbloom"
+      ],
+      "actual": "Void Staff",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "pass": true,
+      "stable": true,
+      "perturbedActual": "Void Staff",
+      "confidenceInconsistent": false,
+      "enemyStyle": "front_to_back",
+      "buildPhase": "adaptive_late_build",
+      "targetItem": "Void Staff"
+    },
+    {
+      "scenario": "poke_comp",
+      "description": "Lulu into repeated ranged pressure and pick tools.",
+      "champion": "Lulu",
+      "role": "UTILITY",
+      "expected": [
+        "Mikael's Blessing",
+        "Redemption"
+      ],
+      "actual": "Mikael's Blessing",
+      "confidence": 74,
+      "confidenceBand": "High",
+      "pass": true,
+      "stable": true,
+      "perturbedActual": "Mikael's Blessing",
+      "confidenceInconsistent": false,
+      "enemyStyle": "pick",
+      "buildPhase": "adaptive_late_build",
+      "targetItem": "Mikael's Blessing"
+    },
+    {
+      "scenario": "shield_comp",
+      "description": "Leona chooses team utility into repeated shield effects.",
+      "champion": "Leona",
+      "role": "UTILITY",
+      "expected": [
+        "Knight's Vow",
+        "Zeke's Convergence"
+      ],
+      "actual": "Knight's Vow",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "pass": true,
+      "stable": true,
+      "perturbedActual": "Knight's Vow",
+      "confidenceInconsistent": false,
+      "enemyStyle": "front_to_back",
+      "buildPhase": "core_completion",
+      "targetItem": "Knight's Vow"
+    },
+    {
+      "scenario": "squishy_comp",
+      "description": "Veigar can greed damage into a low-frontline composition.",
+      "champion": "Veigar",
+      "role": "MIDDLE",
+      "expected": [
+        "Rabadon's Deathcap",
+        "Shadowflame"
+      ],
+      "actual": "Rabadon's Deathcap",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "pass": true,
+      "stable": true,
+      "perturbedActual": "Rabadon's Deathcap",
+      "confidenceInconsistent": false,
+      "enemyStyle": "pick",
+      "buildPhase": "core_completion",
+      "targetItem": "Rabadon's Deathcap"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "squishy_comp",
+  "description": "Veigar can greed damage into a low-frontline composition.",
+  "champion": "Veigar",
+  "role": "MIDDLE",
+  "ownedItems": ["Rod of Ages", "Seraph's Embrace"],
+  "enemyPlayers": [
+    { "champion": "Jinx", "items": [] },
+    { "champion": "Syndra", "items": [] },
+    { "champion": "Ahri", "items": [] },
+    { "champion": "Lux", "items": [] },
+    { "champion": "Xerath", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Rabadon's Deathcap", "Shadowflame"]
+}

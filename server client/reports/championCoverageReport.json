@@ -1,0 +1,41 @@
+{
+  "supportedChampions": [
+    "Ahri",
+    "Amumu",
+    "Blitzcrank",
+    "Briar",
+    "Diana",
+    "Evelynn",
+    "Hecarim",
+    "LeBlanc",
+    "Leona",
+    "Lulu",
+    "Lux",
+    "Nami",
+    "Nautilus",
+    "Nocturne",
+    "Orianna",
+    "Syndra",
+    "Thresh",
+    "Veigar",
+    "Viego",
+    "Viktor"
+  ],
+  "supportedRoles": [
+    "JUNGLE",
+    "MIDDLE",
+    "UTILITY"
+  ],
+  "missingChampions": [],
+  "missingRoles": [
+    "TOP",
+    "BOTTOM"
+  ],
+  "roleBuildCounts": {
+    "TOP": 0,
+    "JUNGLE": 7,
+    "MIDDLE": 7,
+    "BOTTOM": 0,
+    "UTILITY": 6
+  }
+}

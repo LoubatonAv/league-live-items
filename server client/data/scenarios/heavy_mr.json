@@ -1,0 +1,15 @@
+{
+  "name": "heavy_mr",
+  "description": "Late LeBlanc build into multiple completed MR items.",
+  "champion": "LeBlanc",
+  "role": "MIDDLE",
+  "ownedItems": ["Luden's Companion", "Shadowflame", "Rabadon's Deathcap"],
+  "enemyPlayers": [
+    { "champion": "Ornn", "items": ["Force of Nature", "Mercury's Treads", "Kaenic Rookern"] },
+    { "champion": "Vi", "items": ["Spirit Visage", "Mercury's Treads"] },
+    { "champion": "Nautilus", "items": ["Abyssal Mask", "Force of Nature"] },
+    { "champion": "Jinx", "items": [] },
+    { "champion": "Syndra", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Void Staff", "Cryptbloom"]
+}

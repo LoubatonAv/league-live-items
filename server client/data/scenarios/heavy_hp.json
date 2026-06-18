@@ -1,0 +1,15 @@
+{
+  "name": "heavy_hp",
+  "description": "Briar into a high-health frontline after two core items.",
+  "champion": "Briar",
+  "role": "JUNGLE",
+  "ownedItems": ["Stridebreaker", "Sundered Sky"],
+  "enemyPlayers": [
+    { "champion": "Ornn", "items": ["Heartsteel", "Warmog's Armor", "Sunfire Aegis"] },
+    { "champion": "Vi", "items": ["Sterak's Gage", "Giant's Belt"] },
+    { "champion": "Nautilus", "items": ["Ruby Crystal", "Hollow Radiance"] },
+    { "champion": "Jinx", "items": [] },
+    { "champion": "Syndra", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Black Cleaver", "Sterak's Gage"]
+}

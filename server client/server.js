@@ -2,7 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 const https = require("https");
-const { getAPMidBuildAdvice } = require("./advisor/apMidAdvisor");
+const { getBuildAdvice } = require("./advisor/apMidAdvisor");
+const {
+  logRecommendationTelemetry,
+} = require("./advisor/recommendationTelemetry");
 
 const app = express();
 const PORT = 3001;
@@ -225,18 +228,26 @@ app.get("/api/advice", async (req, res) => {
   try {
     let playerList = [];
     let activePlayerName = "";
+    let currentGold = 0;
 
     if (USE_MOCK) {
       playerList = mockData.playerList || [];
       activePlayerName = mockData.activePlayerName || "";
+      currentGold = mockData.currentGold || 0;
     } else {
-      const [playerListResponse, activePlayerNameResponse] = await Promise.all([
+      const [
+        playerListResponse,
+        activePlayerNameResponse,
+        activePlayerResponse,
+      ] = await Promise.all([
         leagueApi.get("/playerlist"),
         leagueApi.get("/activeplayername"),
+        leagueApi.get("/activeplayer"),
       ]);
 
       playerList = playerListResponse.data || [];
       activePlayerName = activePlayerNameResponse.data || "";
+      currentGold = activePlayerResponse.data?.currentGold || 0;
     }
 
     const currentPlayer = findCurrentPlayer(playerList, activePlayerName);
@@ -267,21 +278,43 @@ app.get("/api/advice", async (req, res) => {
 
     const championName =
       req.query.championName || currentPlayer.championName || "LeBlanc";
+    const role =
+      req.query.role || currentPlayer.position || currentPlayer.role || undefined;
 
-    const advice = getAPMidBuildAdvice({
+    const advice = getBuildAdvice({
       championName,
+      role,
       enemyPlayers,
       currentItems: myItems,
+      currentGold,
+      itemDatabase,
+      historyKey: `${
+        currentPlayer.summonerName ||
+        currentPlayer.riotIdGameName ||
+        "current-player"
+      }:${championName}:${role || "default"}`,
+    });
+
+    logRecommendationTelemetry({
+      champion: championName,
+      role: advice.role,
+      enemyStyle: advice.nextItem.debug?.teamStyle?.primary || null,
+      bestRecommendation: advice.nextItem.best?.item || null,
+      confidence: {
+        value: advice.nextItem.best?.confidence || 0,
+        band: advice.nextItem.best?.confidenceBand || "Low",
+      },
     });
 
     res.json({
       championName,
+      role: advice.role,
       currentItems: myItems,
       advice,
     });
   } catch (error) {
     res.status(500).json({
-      error: "Could not build AP mid advice",
+      error: "Could not build item advice",
       details: error.message,
     });
   }
