@@ -1,11 +1,14 @@
 {
   "activePlayerName": "AvnerMock",
   "currentGold": 1250,
+  "gameTime": 1180,
   "playerList": [
     {
       "summonerName": "AvnerMock",
       "team": "ORDER",
       "championName": "LeBlanc",
+      "level": 11,
+      "scores": { "kills": 4, "deaths": 2, "assists": 5 },
       "items": [{ "itemID": 1056, "displayName": "Doran's Ring", "slot": 0 }]
     },
     {

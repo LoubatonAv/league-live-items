@@ -1,0 +1,23 @@
+{
+  "name": "ahead_greed",
+  "description": "A fed LeBlanc can prioritize the greedy Deathcap spike.",
+  "champion": "LeBlanc",
+  "role": "MIDDLE",
+  "ownedItems": ["Luden's Companion", "Shadowflame"],
+  "gameContext": {
+    "gameTime": 1250,
+    "currentGold": 1250,
+    "level": 13,
+    "kills": 8,
+    "deaths": 1,
+    "assists": 4
+  },
+  "enemyPlayers": [
+    { "champion": "Ornn", "items": [] },
+    { "champion": "Vi", "items": [] },
+    { "champion": "Nautilus", "items": [] },
+    { "champion": "Jinx", "items": [] },
+    { "champion": "Syndra", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Rabadon's Deathcap"]
+}

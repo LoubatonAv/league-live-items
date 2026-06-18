@@ -4,6 +4,14 @@
   "champion": "LeBlanc",
   "role": "MIDDLE",
   "ownedItems": ["Luden's Companion", "Shadowflame", "Rabadon's Deathcap"],
+  "gameContext": {
+    "gameTime": 2200,
+    "currentGold": 1400,
+    "level": 16,
+    "kills": 3,
+    "deaths": 3,
+    "assists": 8
+  },
   "enemyPlayers": [
     { "champion": "Ornn", "items": ["Force of Nature", "Mercury's Treads", "Kaenic Rookern"] },
     { "champion": "Vi", "items": ["Spirit Visage", "Mercury's Treads"] },

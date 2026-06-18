@@ -73,6 +73,8 @@ const runScenario = (scenario) => {
     role: scenario.role,
     enemyPlayers,
     currentItems,
+    currentGold: scenario.gameContext?.currentGold || 0,
+    gameContext: scenario.gameContext || {},
     historyKey,
   });
   const perturbedAdvice = getBuildAdvice({
@@ -80,6 +82,8 @@ const runScenario = (scenario) => {
     role: scenario.role,
     enemyPlayers: perturbEnemyPlayers(enemyPlayers),
     currentItems,
+    currentGold: scenario.gameContext?.currentGold || 0,
+    gameContext: scenario.gameContext || {},
     historyKey,
   });
   const actual = advice.nextItem.best.item;

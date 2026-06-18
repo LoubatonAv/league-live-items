@@ -1,0 +1,23 @@
+{
+  "name": "early_core_priority",
+  "description": "Early game LeBlanc should stay on first core progression.",
+  "champion": "LeBlanc",
+  "role": "MIDDLE",
+  "ownedItems": ["Doran's Ring"],
+  "gameContext": {
+    "gameTime": 480,
+    "currentGold": 1100,
+    "level": 7,
+    "kills": 1,
+    "deaths": 1,
+    "assists": 2
+  },
+  "enemyPlayers": [
+    { "champion": "Ornn", "items": ["Mercury's Treads"] },
+    { "champion": "Vi", "items": [] },
+    { "champion": "Nautilus", "items": [] },
+    { "champion": "Jinx", "items": [] },
+    { "champion": "Syndra", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Luden's Companion"]
+}

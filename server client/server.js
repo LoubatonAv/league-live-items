@@ -12,7 +12,7 @@ const PORT = 3001;
 
 app.use(cors());
 
-const USE_MOCK = true;
+const USE_MOCK = String(process.env.USE_MOCK || "").toLowerCase() === "true";
 const mockData = require("./mockGameData.json");
 
 const leagueApi = axios.create({
@@ -27,6 +27,48 @@ const ddragonApi = axios.create({
   baseURL: "https://ddragon.leagueoflegends.com",
   timeout: 5000,
 });
+
+const getGameSnapshot = async ({ includeActivePlayer = false } = {}) => {
+  if (!USE_MOCK) {
+    try {
+      const requests = [
+        leagueApi.get("/playerlist"),
+        leagueApi.get("/activeplayername"),
+      ];
+
+      if (includeActivePlayer) {
+        requests.push(
+          leagueApi.get("/activeplayer"),
+          leagueApi.get("/gamestats"),
+        );
+      }
+
+      const responses = await Promise.all(requests);
+
+      return {
+        mode: "live",
+        playerList: responses[0].data || [],
+        activePlayerName: responses[1].data || "",
+        activePlayerData: responses[2]?.data || {},
+        gameTime: responses[3]?.data?.gameTime || 0,
+        currentGold: responses[2]?.data?.currentGold || 0,
+      };
+    } catch (error) {
+      console.warn(
+        `Live Client unavailable; using mock data: ${error.message}`,
+      );
+    }
+  }
+
+  return {
+    mode: "mock",
+    playerList: mockData.playerList || [],
+    activePlayerName: mockData.activePlayerName || "",
+    activePlayerData: {},
+    gameTime: mockData.gameTime || 0,
+    currentGold: mockData.currentGold || 0,
+  };
+};
 
 let latestDdragonVersion = "16.5.1";
 let itemDatabase = {};
@@ -127,7 +169,7 @@ const enrichItem = (item) => {
 app.get("/api/health", (req, res) => {
   res.json({
     ok: true,
-    mode: USE_MOCK ? "mock" : "live",
+    mode: USE_MOCK ? "mock" : "live-with-mock-fallback",
     ddragonVersion: latestDdragonVersion,
     itemCount: Object.keys(itemDatabase).length,
   });
@@ -147,21 +189,8 @@ app.get("/api/items/:itemId", (req, res) => {
 
 app.get("/api/players", async (req, res) => {
   try {
-    let playerList = [];
-    let activePlayerName = "";
-
-    if (USE_MOCK) {
-      playerList = mockData.playerList || [];
-      activePlayerName = mockData.activePlayerName || "";
-    } else {
-      const [playerListResponse, activePlayerNameResponse] = await Promise.all([
-        leagueApi.get("/playerlist"),
-        leagueApi.get("/activeplayername"),
-      ]);
-
-      playerList = playerListResponse.data || [];
-      activePlayerName = activePlayerNameResponse.data || "";
-    }
+    const snapshot = await getGameSnapshot();
+    const { playerList, activePlayerName } = snapshot;
 
     const currentPlayer = findCurrentPlayer(playerList, activePlayerName);
 
@@ -226,29 +255,14 @@ app.get("/api/players", async (req, res) => {
 
 app.get("/api/advice", async (req, res) => {
   try {
-    let playerList = [];
-    let activePlayerName = "";
-    let currentGold = 0;
-
-    if (USE_MOCK) {
-      playerList = mockData.playerList || [];
-      activePlayerName = mockData.activePlayerName || "";
-      currentGold = mockData.currentGold || 0;
-    } else {
-      const [
-        playerListResponse,
-        activePlayerNameResponse,
-        activePlayerResponse,
-      ] = await Promise.all([
-        leagueApi.get("/playerlist"),
-        leagueApi.get("/activeplayername"),
-        leagueApi.get("/activeplayer"),
-      ]);
-
-      playerList = playerListResponse.data || [];
-      activePlayerName = activePlayerNameResponse.data || "";
-      currentGold = activePlayerResponse.data?.currentGold || 0;
-    }
+    const snapshot = await getGameSnapshot({ includeActivePlayer: true });
+    const {
+      playerList,
+      activePlayerName,
+      currentGold,
+      gameTime,
+      activePlayerData,
+    } = snapshot;
 
     const currentPlayer = findCurrentPlayer(playerList, activePlayerName);
 
@@ -280,6 +294,15 @@ app.get("/api/advice", async (req, res) => {
       req.query.championName || currentPlayer.championName || "LeBlanc";
     const role =
       req.query.role || currentPlayer.position || currentPlayer.role || undefined;
+    const scores = currentPlayer.scores || {};
+    const gameContext = {
+      gameTime,
+      currentGold,
+      level: activePlayerData.level || currentPlayer.level || 0,
+      kills: scores.kills || currentPlayer.kills || 0,
+      deaths: scores.deaths || currentPlayer.deaths || 0,
+      assists: scores.assists || currentPlayer.assists || 0,
+    };
 
     const advice = getBuildAdvice({
       championName,
@@ -287,6 +310,7 @@ app.get("/api/advice", async (req, res) => {
       enemyPlayers,
       currentItems: myItems,
       currentGold,
+      gameContext,
       itemDatabase,
       historyKey: `${
         currentPlayer.summonerName ||
@@ -310,6 +334,13 @@ app.get("/api/advice", async (req, res) => {
       championName,
       role: advice.role,
       currentItems: myItems,
+      gameTime: advice.gameTime,
+      currentGold: advice.currentGold,
+      level: advice.level,
+      kills: advice.kills,
+      deaths: advice.deaths,
+      assists: advice.assists,
+      recommendationChange: advice.recommendationChange,
       advice,
     });
   } catch (error) {
@@ -323,6 +354,8 @@ app.get("/api/advice", async (req, res) => {
 loadItemDatabase().then(() => {
   app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
-    console.log(`Mode: ${USE_MOCK ? "mock" : "live"}`);
+    console.log(
+      `Mode: ${USE_MOCK ? "mock" : "live with automatic mock fallback"}`,
+    );
   });
 });

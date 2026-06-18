@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-18T16:55:59.088Z",
+  "generatedAt": "2026-06-18T17:37:31.964Z",
   "simulationCount": 20,
   "simulations": [
     {
@@ -9,7 +9,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Malignance"
+      "targetItem": "Malignance",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Amumu",
@@ -18,7 +20,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Sunfire Aegis"
+      "targetItem": "Sunfire Aegis",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Blitzcrank",
@@ -27,7 +31,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Celestial Opposition"
+      "targetItem": "Celestial Opposition",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Briar",
@@ -36,16 +42,20 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Stridebreaker"
+      "targetItem": "Stridebreaker",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Diana",
       "role": "JUNGLE",
       "bestItem": "Nashor's Tooth",
-      "confidence": 96,
+      "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Nashor's Tooth"
+      "targetItem": "Nashor's Tooth",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Evelynn",
@@ -54,7 +64,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Lich Bane"
+      "targetItem": "Lich Bane",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Hecarim",
@@ -63,7 +75,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Eclipse"
+      "targetItem": "Eclipse",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "LeBlanc",
@@ -72,7 +86,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Luden's Companion"
+      "targetItem": "Luden's Companion",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Leona",
@@ -81,7 +97,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Celestial Opposition"
+      "targetItem": "Celestial Opposition",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Lulu",
@@ -90,7 +108,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Dream Maker"
+      "targetItem": "Dream Maker",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Lux",
@@ -99,7 +119,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Luden's Companion"
+      "targetItem": "Luden's Companion",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Nami",
@@ -108,7 +130,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Dream Maker"
+      "targetItem": "Dream Maker",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Nautilus",
@@ -117,7 +141,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Celestial Opposition"
+      "targetItem": "Celestial Opposition",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Nocturne",
@@ -126,7 +152,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Stridebreaker"
+      "targetItem": "Stridebreaker",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Orianna",
@@ -135,7 +163,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Luden's Companion"
+      "targetItem": "Luden's Companion",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Syndra",
@@ -144,7 +174,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Luden's Companion"
+      "targetItem": "Luden's Companion",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Thresh",
@@ -153,7 +185,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Celestial Opposition"
+      "targetItem": "Celestial Opposition",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Veigar",
@@ -162,7 +196,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Rod of Ages"
+      "targetItem": "Rod of Ages",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Viego",
@@ -171,7 +207,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Kraken Slayer"
+      "targetItem": "Kraken Slayer",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     },
     {
       "champion": "Viktor",
@@ -180,7 +218,9 @@
       "confidence": 100,
       "confidenceBand": "Very High",
       "buildPhase": "early_core",
-      "targetItem": "Luden's Companion"
+      "targetItem": "Luden's Companion",
+      "gamePhase": "mid",
+      "kda": "4/2/5"
     }
   ]
 }

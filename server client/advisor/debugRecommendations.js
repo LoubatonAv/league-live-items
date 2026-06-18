@@ -39,6 +39,14 @@ const output = supportedBuilds.map(({ championName, role }) => {
     enemyPlayers,
     currentItems,
     currentGold: mockData.currentGold || 0,
+    gameContext: {
+      gameTime: mockData.gameTime || 0,
+      currentGold: mockData.currentGold || 0,
+      level: currentPlayer.level || 0,
+      kills: currentPlayer.scores?.kills || 0,
+      deaths: currentPlayer.scores?.deaths || 0,
+      assists: currentPlayer.scores?.assists || 0,
+    },
     persistHistory: false,
   });
   const championBuild = getChampionBuild({ championName, role });
@@ -60,6 +68,9 @@ const output = supportedBuilds.map(({ championName, role }) => {
     buildPath: advice.nextItem.buildPath,
     componentRecommendation: advice.nextItem.component,
     confidence: advice.nextItem.debug.recommendationConfidence,
+    gameContext: advice.nextItem.debug.gameContext,
+    recommendationChange: advice.nextItem.recommendationChange,
+    enemyItemDeltas: advice.nextItem.debug.enemyItemDeltas,
     scoreBreakdown: advice.nextItem.debug.candidateScores,
     buildStage: advice.nextItem.debug.buildStage,
     archetype: championBuild?.archetype || null,

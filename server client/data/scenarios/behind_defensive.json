@@ -1,0 +1,23 @@
+{
+  "name": "behind_defensive",
+  "description": "A high-death LeBlanc should prioritize survival.",
+  "champion": "LeBlanc",
+  "role": "MIDDLE",
+  "ownedItems": ["Luden's Companion", "Shadowflame"],
+  "gameContext": {
+    "gameTime": 1250,
+    "currentGold": 900,
+    "level": 11,
+    "kills": 1,
+    "deaths": 7,
+    "assists": 2
+  },
+  "enemyPlayers": [
+    { "champion": "Ornn", "items": [] },
+    { "champion": "Vi", "items": [] },
+    { "champion": "Nautilus", "items": [] },
+    { "champion": "Jinx", "items": [] },
+    { "champion": "Syndra", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Banshee's Veil", "Zhonya's Hourglass"]
+}

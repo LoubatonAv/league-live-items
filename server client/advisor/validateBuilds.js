@@ -248,6 +248,78 @@ if (
   failures.push("Recommendation stability changed after a minor enemy update");
 }
 
+clearRecommendationHistory();
+const changeHistoryKey = "validation:enemy-mr-change";
+const neutralEnemies = [
+  { championName: "Ornn", items: [] },
+  { championName: "Vi", items: [] },
+  { championName: "Nautilus", items: [] },
+  { championName: "Jinx", items: [] },
+  { championName: "Syndra", items: [] },
+];
+const mrEnemies = neutralEnemies.map((player, index) => {
+  const mrItems = [
+    {
+      displayName: "Force of Nature",
+      meta: {
+        name: "Force of Nature",
+        stats: { FlatSpellBlockMod: 55 },
+        gold: { total: 2800 },
+      },
+    },
+    {
+      displayName: "Mercury's Treads",
+      meta: {
+        name: "Mercury's Treads",
+        stats: { FlatSpellBlockMod: 20 },
+        gold: { total: 1250 },
+      },
+    },
+    {
+      displayName: "Kaenic Rookern",
+      meta: {
+        name: "Kaenic Rookern",
+        stats: { FlatSpellBlockMod: 80 },
+        gold: { total: 2900 },
+      },
+    },
+  ];
+
+  return {
+    ...player,
+    items: index < mrItems.length ? [mrItems[index]] : [],
+  };
+});
+const lateCoreItems = [
+  item("Luden's Companion"),
+  item("Shadowflame"),
+  item("Rabadon's Deathcap"),
+];
+getBuildAdvice({
+  championName: "LeBlanc",
+  role: "MIDDLE",
+  enemyPlayers: neutralEnemies,
+  currentItems: lateCoreItems,
+  gameContext: { gameTime: 1700, kills: 2, deaths: 2, assists: 5 },
+  historyKey: changeHistoryKey,
+});
+const changedAdvice = getBuildAdvice({
+  championName: "LeBlanc",
+  role: "MIDDLE",
+  enemyPlayers: mrEnemies,
+  currentItems: lateCoreItems,
+  gameContext: { gameTime: 1850, kills: 2, deaths: 2, assists: 5 },
+  historyKey: changeHistoryKey,
+});
+
+if (
+  !changedAdvice.nextItem.recommendationChange.changed ||
+  changedAdvice.nextItem.best.item !== "Void Staff" ||
+  changedAdvice.nextItem.debug.enemyItemDeltas.newMRItems.length < 3
+) {
+  failures.push("Enemy MR purchase did not produce a tracked recommendation change");
+}
+
 if (failures.length > 0) {
   console.error(`Build validation failed with ${failures.length} issue(s):`);
   failures.forEach((failure) => console.error(`- ${failure}`));

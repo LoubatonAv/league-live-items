@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-06-18T17:00:24.363Z",
+  "generatedAt": "2026-06-18T17:39:18.320Z",
   "summary": {
-    "scenarioCount": 6,
-    "passed": 6,
+    "scenarioCount": 9,
+    "passed": 9,
     "failed": 0,
-    "stable": 6,
+    "stable": 9,
     "unstable": 0,
     "confidenceFlags": 0,
     "accuracy": 100
@@ -15,6 +15,9 @@
       "covered": true,
       "passed": true,
       "scenarios": [
+        "ahead_greed",
+        "behind_defensive",
+        "early_core_priority",
         "heavy_mr"
       ]
     },
@@ -53,6 +56,45 @@
   ],
   "results": [
     {
+      "scenario": "ahead_greed",
+      "description": "A fed LeBlanc can prioritize the greedy Deathcap spike.",
+      "champion": "LeBlanc",
+      "role": "MIDDLE",
+      "expected": [
+        "Rabadon's Deathcap"
+      ],
+      "actual": "Rabadon's Deathcap",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "pass": true,
+      "stable": true,
+      "perturbedActual": "Rabadon's Deathcap",
+      "confidenceInconsistent": false,
+      "enemyStyle": "front_to_back",
+      "buildPhase": "core_completion",
+      "targetItem": "Rabadon's Deathcap"
+    },
+    {
+      "scenario": "behind_defensive",
+      "description": "A high-death LeBlanc should prioritize survival.",
+      "champion": "LeBlanc",
+      "role": "MIDDLE",
+      "expected": [
+        "Banshee's Veil",
+        "Zhonya's Hourglass"
+      ],
+      "actual": "Banshee's Veil",
+      "confidence": 83,
+      "confidenceBand": "High",
+      "pass": true,
+      "stable": true,
+      "perturbedActual": "Banshee's Veil",
+      "confidenceInconsistent": false,
+      "enemyStyle": "front_to_back",
+      "buildPhase": "core_completion",
+      "targetItem": "Banshee's Veil"
+    },
+    {
       "scenario": "dive_comp",
       "description": "Evelynn needs to survive heavy engage and dive.",
       "champion": "Evelynn",
@@ -62,16 +104,35 @@
         "Banshee's Veil",
         "Rabadon's Deathcap"
       ],
-      "actual": "Banshee's Veil",
-      "confidence": 66,
-      "confidenceBand": "Medium",
+      "actual": "Rabadon's Deathcap",
+      "confidence": 100,
+      "confidenceBand": "Very High",
       "pass": true,
       "stable": true,
-      "perturbedActual": "Banshee's Veil",
+      "perturbedActual": "Rabadon's Deathcap",
       "confidenceInconsistent": false,
       "enemyStyle": "front_to_back",
       "buildPhase": "adaptive_late_build",
-      "targetItem": "Banshee's Veil"
+      "targetItem": "Rabadon's Deathcap"
+    },
+    {
+      "scenario": "early_core_priority",
+      "description": "Early game LeBlanc should stay on first core progression.",
+      "champion": "LeBlanc",
+      "role": "MIDDLE",
+      "expected": [
+        "Luden's Companion"
+      ],
+      "actual": "Luden's Companion",
+      "confidence": 100,
+      "confidenceBand": "Very High",
+      "pass": true,
+      "stable": true,
+      "perturbedActual": "Luden's Companion",
+      "confidenceInconsistent": false,
+      "enemyStyle": "front_to_back",
+      "buildPhase": "early_core",
+      "targetItem": "Luden's Companion"
     },
     {
       "scenario": "heavy_hp",
@@ -123,8 +184,8 @@
         "Redemption"
       ],
       "actual": "Mikael's Blessing",
-      "confidence": 74,
-      "confidenceBand": "High",
+      "confidence": 96,
+      "confidenceBand": "Very High",
       "pass": true,
       "stable": true,
       "perturbedActual": "Mikael's Blessing",

@@ -110,6 +110,88 @@ const TEAM_STYLE_WEIGHTS = {
   },
 };
 
+const GAME_STATE_WEIGHTS = {
+  phases: {
+    early: {
+      core_progression: 22,
+      enemyAnalysisMultiplier: 0.75,
+    },
+    mid: {
+      core_progression: 8,
+      enemyAnalysisMultiplier: 1,
+    },
+    late: {
+      core_progression: 0,
+      enemyAnalysisMultiplier: 1.3,
+    },
+  },
+  performance: {
+    ahead: {
+      greedy_damage: 16,
+      burst: 12,
+      snowball: 18,
+      survival: -6,
+    },
+    behind: {
+      survival: 18,
+      team_survival: 14,
+      ally_protection: 10,
+      greedy_damage: -14,
+      snowball: -12,
+    },
+    highDeaths: {
+      survival: 14,
+      team_survival: 10,
+      greedy_damage: -8,
+    },
+    highKills: {
+      burst: 8,
+      greedy_damage: 10,
+      snowball: 14,
+    },
+  },
+};
+
+const KEY_DEFENSIVE_ITEMS = new Set([
+  "Force of Nature",
+  "Kaenic Rookern",
+  "Spirit Visage",
+  "Abyssal Mask",
+  "Thornmail",
+  "Frozen Heart",
+  "Randuin's Omen",
+  "Warmog's Armor",
+  "Heartsteel",
+  "Sterak's Gage",
+  "Maw of Malmortius",
+  "Locket of the Iron Solari",
+  "Seraph's Embrace",
+  "Immortal Shieldbow",
+]);
+
+const normalizeGameContext = (gameContext = {}) => {
+  const gameTime = Number(gameContext.gameTime || 0);
+  const kills = Number(gameContext.kills || 0);
+  const deaths = Number(gameContext.deaths || 0);
+  const assists = Number(gameContext.assists || 0);
+  const phase = gameTime >= 1800 ? "late" : gameTime >= 900 ? "mid" : "early";
+  const ahead = kills >= deaths + 2;
+  const behind = deaths >= kills + 2;
+
+  return {
+    gameTime,
+    currentGold: Number(gameContext.currentGold || 0),
+    level: Number(gameContext.level || 0),
+    kills,
+    deaths,
+    assists,
+    phase,
+    performance: ahead ? "ahead" : behind ? "behind" : "even",
+    highDeaths: deaths >= 5,
+    highKills: kills >= 5,
+  };
+};
+
 const ITEM_STAT_MATCHERS = {
   ability_power: (item) => (item?.stats?.FlatMagicDamageMod || 0) > 0,
   attack_damage: (item) => (item?.stats?.FlatPhysicalDamageMod || 0) > 0,
@@ -626,6 +708,132 @@ const getCounterStrategyAdjustment = (itemName, teamStyle) => {
   };
 };
 
+const getGameStateAdjustment = ({
+  itemName,
+  strategy,
+  buildProgress,
+  gameContext,
+}) => {
+  const phaseRules = GAME_STATE_WEIGHTS.phases[gameContext.phase];
+  let points = 0;
+  const reasons = [];
+
+  if (
+    itemName === buildProgress.nextCoreItem &&
+    phaseRules?.core_progression
+  ) {
+    points += phaseRules.core_progression;
+    reasons.push(
+      `${gameContext.phase} game timing keeps core progression valuable.`,
+    );
+  }
+
+  const performanceRules = GAME_STATE_WEIGHTS.performance;
+  const addStrategyWeight = (rules, reason) => {
+    const value = rules?.[strategy] || 0;
+    points += value;
+    if (value !== 0) reasons.push(reason);
+  };
+
+  if (gameContext.performance === "ahead") {
+    addStrategyWeight(
+      performanceRules.ahead,
+      "Your current lead supports a greedier damage option.",
+    );
+  }
+
+  if (gameContext.performance === "behind") {
+    addStrategyWeight(
+      performanceRules.behind,
+      "Your current KDA favors a safer, defensive purchase.",
+    );
+  }
+
+  if (gameContext.highDeaths) {
+    addStrategyWeight(
+      performanceRules.highDeaths,
+      "High deaths increase the value of survival tools.",
+    );
+  }
+
+  if (gameContext.highKills) {
+    addStrategyWeight(
+      performanceRules.highKills,
+      "High kills support an aggressive snowball purchase.",
+    );
+  }
+
+  return {
+    points,
+    reasons,
+    enemyAnalysisMultiplier: phaseRules?.enemyAnalysisMultiplier || 1,
+  };
+};
+
+const getEnemySnapshot = (enemyAnalysis) => {
+  const signals = enemyAnalysis.itemSignals;
+
+  return {
+    allItemNames: (signals.items || [])
+      .map((item) => item?.meta?.name || item?.displayName)
+      .filter(Boolean),
+    mrItemNames: signals.mrItemNames || [],
+    armorItemNames: signals.armorItemNames || [],
+    hpItemNames: signals.hpItemNames || [],
+    shieldItemNames: signals.shieldItemNames || [],
+    tiers: enemyAnalysis.tiers,
+  };
+};
+
+const getNewValues = (current = [], previous = []) => {
+  const previousCounts = previous.reduce((counts, value) => {
+    counts[value] = (counts[value] || 0) + 1;
+    return counts;
+  }, {});
+
+  return current.filter((value) => {
+    if ((previousCounts[value] || 0) > 0) {
+      previousCounts[value] -= 1;
+      return false;
+    }
+    return true;
+  });
+};
+
+const detectEnemyItemDeltas = (previousSnapshot, currentSnapshot) => {
+  if (!previousSnapshot) {
+    return {
+      newItems: [],
+      newMRItems: [],
+      newArmorItems: [],
+      newHPItems: [],
+      newShieldItems: [],
+      keyDefensiveItems: [],
+    };
+  }
+
+  const newItems = getNewValues(
+    currentSnapshot.allItemNames,
+    previousSnapshot.allItemNames,
+  );
+
+  const mrNames = new Set(currentSnapshot.mrItemNames);
+  const armorNames = new Set(currentSnapshot.armorItemNames);
+  const hpNames = new Set(currentSnapshot.hpItemNames);
+  const shieldNames = new Set(currentSnapshot.shieldItemNames);
+
+  return {
+    newItems,
+    newMRItems: newItems.filter((itemName) => mrNames.has(itemName)),
+    newArmorItems: newItems.filter((itemName) => armorNames.has(itemName)),
+    newHPItems: newItems.filter((itemName) => hpNames.has(itemName)),
+    newShieldItems: newItems.filter((itemName) => shieldNames.has(itemName)),
+    keyDefensiveItems: newItems.filter((itemName) =>
+      KEY_DEFENSIVE_ITEMS.has(itemName),
+    ),
+  };
+};
+
 const scoreItem = ({
   itemName,
   championName,
@@ -638,6 +846,7 @@ const scoreItem = ({
   buildProgress,
   itemLookup,
   previousRecommendation,
+  gameContext,
 }) => {
   const {
     durabilityProfile,
@@ -657,6 +866,7 @@ const scoreItem = ({
     synergy: 0,
     buildQuality: 0,
     counterStrategy: 0,
+    gameState: 0,
     historyStability: 0,
     enemyAnalysis: 0,
     redundancy: 0,
@@ -750,6 +960,19 @@ const scoreItem = ({
     counterStrategyAdjustment.points,
     counterStrategyAdjustment.reason,
     "counterStrategy",
+  );
+
+  const strategy = ITEM_STRATEGIES[itemName] || "core_progression";
+  const gameStateAdjustment = getGameStateAdjustment({
+    itemName,
+    strategy,
+    buildProgress,
+    gameContext,
+  });
+  add(
+    gameStateAdjustment.points,
+    gameStateAdjustment.reasons[0] || null,
+    "gameState",
   );
 
   if (
@@ -1169,6 +1392,14 @@ const scoreItem = ({
     add(-8, null, "redundancy");
   }
 
+  if (gameStateAdjustment.enemyAnalysisMultiplier !== 1) {
+    const originalEnemyScore = scoreBreakdown.enemyAnalysis;
+    const adjustedEnemyScore = Math.round(
+      originalEnemyScore * gameStateAdjustment.enemyAnalysisMultiplier,
+    );
+    score += adjustedEnemyScore - originalEnemyScore;
+    scoreBreakdown.enemyAnalysis = adjustedEnemyScore;
+  }
   const confidence = clamp(Math.round(score), 0, 100);
   const reasons = reasonEntries
     .sort((a, b) => Math.abs(b.points) - Math.abs(a.points))
@@ -1180,7 +1411,7 @@ const scoreItem = ({
     score,
     confidence,
     reasons,
-    strategy: ITEM_STRATEGIES[itemName] || "core_progression",
+    strategy,
     scoreBreakdown,
   };
 };
@@ -1288,6 +1519,94 @@ const getBuildPathProgress = ({
   };
 };
 
+const getRecommendationChange = ({
+  previousRecommendation,
+  currentItem,
+  buildProgress,
+  gameContext,
+  enemyAnalysis,
+  enemyItemDeltas,
+}) => {
+  const previousItem = previousRecommendation?.lastRecommendedItem || null;
+  const changed = Boolean(previousItem && previousItem !== currentItem);
+  const reasons = [];
+  const signalLabels = {
+    mr: "MR",
+    armor: "armor",
+    hp: "HP",
+    shields: "shielding",
+    engage: "engage",
+    dive: "dive",
+    cc: "CC",
+  };
+
+  if (!changed) {
+    return {
+      changed: false,
+      previousItem,
+      currentItem,
+      reasons,
+    };
+  }
+
+  const previousTiers = previousRecommendation?.enemySnapshot?.tiers || {};
+  Object.entries(enemyAnalysis.tiers).forEach(([signal, currentTier]) => {
+    const previousTier = previousTiers[signal];
+    if (
+      previousTier &&
+      previousTier !== currentTier &&
+      SEVERITY_RANK[currentTier] > SEVERITY_RANK[previousTier]
+    ) {
+      reasons.push(
+        `Enemy ${signalLabels[signal] || signal} crossed from ${previousTier} to ${currentTier}.`,
+      );
+    }
+  });
+
+  enemyItemDeltas.keyDefensiveItems.slice(0, 2).forEach((itemName) => {
+    reasons.push(`Enemy completed ${itemName}.`);
+  });
+
+  const previousCoreItems = previousRecommendation?.ownedCoreItems || [];
+  const newlyOwnedCoreItems = buildProgress.ownedCoreItems.filter(
+    (itemName) => !previousCoreItems.includes(itemName),
+  );
+  newlyOwnedCoreItems.slice(0, 2).forEach((itemName) => {
+    reasons.push(
+      `You completed ${itemName}, so ${buildProgress.nextCoreItem || "a situational item"} is now the next build target.`,
+    );
+  });
+
+  const previousPhase = previousRecommendation?.gamePhase;
+  if (previousPhase && previousPhase !== gameContext.phase) {
+    reasons.push(
+      `Game reached ${gameContext.phase} phase, changing build priorities.`,
+    );
+  }
+
+  if (
+    previousRecommendation?.performance &&
+    previousRecommendation.performance !== gameContext.performance
+  ) {
+    reasons.push(
+      `Your game state changed from ${previousRecommendation.performance} to ${gameContext.performance}.`,
+    );
+  }
+
+  if (reasons.length === 0) {
+    reasons.push(
+      "The combined build progression and enemy threat scores now favor a different item.",
+    );
+  }
+
+  return {
+    changed,
+    previousItem,
+    currentItem,
+    reasons: reasons.slice(0, 4),
+  };
+};
+
 const getNextItemRecommendation = ({
   championName,
   role,
@@ -1297,8 +1616,13 @@ const getNextItemRecommendation = ({
   itemDatabase = {},
   historyKey,
   persistHistory = true,
+  gameContext = {},
 }) => {
   const enemyAnalysis = analyzeEnemyTeam(enemyPlayers);
+  const normalizedGameContext = normalizeGameContext({
+    ...gameContext,
+    currentGold,
+  });
   const archetype = getChampionArchetype(championName);
   const resolvedRole = resolveRole(championName, role);
   const championBuild = getChampionBuild({
@@ -1314,6 +1638,11 @@ const getNextItemRecommendation = ({
   const buildStage = getBuildStage(currentItems, buildProgress);
   const itemLookup = createItemLookup(itemDatabase);
   const previousRecommendation = getRecommendationHistory(historyKey);
+  const enemySnapshot = getEnemySnapshot(enemyAnalysis);
+  const enemyItemDeltas = detectEnemyItemDeltas(
+    previousRecommendation?.enemySnapshot,
+    enemySnapshot,
+  );
 
   if (!championBuild || candidateItems.length === 0) {
     return {
@@ -1353,6 +1682,7 @@ const getNextItemRecommendation = ({
       buildProgress,
       itemLookup,
       previousRecommendation,
+      gameContext: normalizedGameContext,
     }),
   )
     .filter((item) => item.score > -900)
@@ -1381,11 +1711,23 @@ const getNextItemRecommendation = ({
     currentItems,
     itemDatabase,
   });
+  const recommendationChange = getRecommendationChange({
+    previousRecommendation,
+    currentItem: best.item,
+    buildProgress,
+    gameContext: normalizedGameContext,
+    enemyAnalysis,
+    enemyItemDeltas,
+  });
 
   if (persistHistory && historyKey && best.item) {
     setRecommendationHistory(historyKey, {
       lastRecommendedItem: best.item,
       lastTargetItem: buildProgress.nextCoreItem,
+      enemySnapshot,
+      ownedCoreItems: buildProgress.ownedCoreItems,
+      gamePhase: normalizedGameContext.phase,
+      performance: normalizedGameContext.performance,
     });
   }
 
@@ -1410,6 +1752,7 @@ const getNextItemRecommendation = ({
 
     component: recommendedComponent,
     buildPath,
+    recommendationChange,
     avoidForNow: explainAvoids({ scored }),
 
     debug: {
@@ -1430,13 +1773,18 @@ const getNextItemRecommendation = ({
       teamStyle: enemyAnalysis.teamStyle,
       buildPath,
       currentGold,
+      gameContext: normalizedGameContext,
       recommendedComponent,
+      enemyItemDeltas,
+      recommendationChange,
       recommendationConfidence: confidence,
       recommendationHistory: {
         previous: previousRecommendation,
         current: {
           lastRecommendedItem: best.item,
           lastTargetItem: buildProgress.nextCoreItem,
+          gamePhase: normalizedGameContext.phase,
+          performance: normalizedGameContext.performance,
         },
       },
     },
@@ -1452,6 +1800,7 @@ const getAPMidBuildAdvice = ({
   itemDatabase = {},
   historyKey,
   persistHistory = true,
+  gameContext = {},
 }) => {
   const resolvedRole = resolveRole(championName, role);
   const championBuild = getChampionBuild({
@@ -1469,6 +1818,11 @@ const getAPMidBuildAdvice = ({
     itemDatabase,
     historyKey,
     persistHistory,
+    gameContext,
+  });
+  const normalizedGameContext = normalizeGameContext({
+    ...gameContext,
+    currentGold,
   });
 
   return {
@@ -1479,6 +1833,13 @@ const getAPMidBuildAdvice = ({
     enemyAnalysis,
     currentItems,
     currentGold,
+    gameTime: normalizedGameContext.gameTime,
+    level: normalizedGameContext.level,
+    kills: normalizedGameContext.kills,
+    deaths: normalizedGameContext.deaths,
+    assists: normalizedGameContext.assists,
+    gamePhase: normalizedGameContext.phase,
+    recommendationChange: nextItem.recommendationChange,
     nextItem,
   };
 };
@@ -1491,4 +1852,5 @@ module.exports = {
   getAPMidBuildAdvice,
   getNextItemRecommendation,
   getRecommendedComponent,
+  normalizeGameContext,
 };

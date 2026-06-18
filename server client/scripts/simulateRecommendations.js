@@ -35,6 +35,14 @@ const simulations = Object.entries(CHAMPION_BUILDS).flatMap(
           },
         ],
         currentGold: mockData.currentGold || 0,
+        gameContext: {
+          gameTime: mockData.gameTime || 0,
+          currentGold: mockData.currentGold || 0,
+          level: currentPlayer.level || 0,
+          kills: currentPlayer.scores?.kills || 0,
+          deaths: currentPlayer.scores?.deaths || 0,
+          assists: currentPlayer.scores?.assists || 0,
+        },
         persistHistory: false,
       });
 
@@ -46,6 +54,8 @@ const simulations = Object.entries(CHAMPION_BUILDS).flatMap(
         confidenceBand: advice.nextItem.best.confidenceBand,
         buildPhase: advice.nextItem.buildPath.currentBuildPhase,
         targetItem: advice.nextItem.buildPath.currentTargetItem,
+        gamePhase: advice.gamePhase,
+        kda: `${advice.kills}/${advice.deaths}/${advice.assists}`,
       };
     }),
 );
