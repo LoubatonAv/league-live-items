@@ -1,0 +1,23 @@
+{
+  "name": "leona_double_ap",
+  "description": "Leona should adapt into magic resistance when AP threats are carrying fights.",
+  "champion": "Leona",
+  "role": "UTILITY",
+  "ownedItems": ["Celestial Opposition", "Locket of the Iron Solari"],
+  "gameContext": {
+    "gameTime": 1500,
+    "currentGold": 1000,
+    "level": 11,
+    "kills": 1,
+    "deaths": 5,
+    "assists": 12
+  },
+  "enemyPlayers": [
+    { "champion": "Syndra", "items": ["Rabadon's Deathcap"] },
+    { "champion": "Ahri", "items": ["Horizon Focus"] },
+    { "champion": "Nautilus", "items": ["Abyssal Mask"] },
+    { "champion": "Jinx", "items": [] },
+    { "champion": "Vi", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Kaenic Rookern", "Abyssal Mask"]
+}

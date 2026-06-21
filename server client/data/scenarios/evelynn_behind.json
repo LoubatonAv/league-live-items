@@ -1,0 +1,23 @@
+{
+  "name": "evelynn_behind",
+  "description": "A high-death Evelynn should buy safety rather than a greedy Deathcap.",
+  "champion": "Evelynn",
+  "role": "JUNGLE",
+  "ownedItems": ["Lich Bane", "Sorcerer's Shoes", "Shadowflame"],
+  "gameContext": {
+    "gameTime": 1500,
+    "currentGold": 1050,
+    "level": 12,
+    "kills": 1,
+    "deaths": 7,
+    "assists": 2
+  },
+  "enemyPlayers": [
+    { "champion": "Vi", "items": [] },
+    { "champion": "Nautilus", "items": [] },
+    { "champion": "Syndra", "items": [] },
+    { "champion": "Jinx", "items": [] },
+    { "champion": "Ornn", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Banshee's Veil", "Zhonya's Hourglass"]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "veigar_heavy_ap_pick",
+  "description": "Veigar should value Banshee's spell shield into AP pick threats.",
+  "champion": "Veigar",
+  "role": "MIDDLE",
+  "ownedItems": ["Rod of Ages", "Seraph's Embrace"],
+  "gameContext": {
+    "gameTime": 1550,
+    "currentGold": 1150,
+    "level": 14,
+    "kills": 3,
+    "deaths": 5,
+    "assists": 6
+  },
+  "enemyPlayers": [
+    { "champion": "Syndra", "items": ["Luden's Companion"] },
+    { "champion": "Ahri", "items": ["Horizon Focus"] },
+    { "champion": "Nautilus", "items": ["Abyssal Mask"] },
+    { "champion": "Ornn", "items": [] },
+    { "champion": "Jinx", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Banshee's Veil", "Zhonya's Hourglass"]
+}

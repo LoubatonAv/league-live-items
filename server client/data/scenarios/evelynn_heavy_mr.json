@@ -1,0 +1,23 @@
+{
+  "name": "evelynn_heavy_mr",
+  "description": "Late-game Evelynn should buy percentage penetration into widespread MR.",
+  "champion": "Evelynn",
+  "role": "JUNGLE",
+  "ownedItems": ["Lich Bane", "Sorcerer's Shoes", "Shadowflame", "Rabadon's Deathcap"],
+  "gameContext": {
+    "gameTime": 2100,
+    "currentGold": 1450,
+    "level": 16,
+    "kills": 7,
+    "deaths": 3,
+    "assists": 5
+  },
+  "enemyPlayers": [
+    { "champion": "Ornn", "items": ["Force of Nature", "Kaenic Rookern"] },
+    { "champion": "Vi", "items": ["Mercury's Treads", "Spirit Visage"] },
+    { "champion": "Nautilus", "items": ["Abyssal Mask"] },
+    { "champion": "Jinx", "items": ["Mercury's Treads"] },
+    { "champion": "Syndra", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Void Staff", "Cryptbloom"]
+}

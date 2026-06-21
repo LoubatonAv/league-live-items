@@ -2,6 +2,9 @@
 
 Node/Express service for League of Legends live item recommendations. The service can read mock game data or Riot Live Client Data and enrich items with Data Dragon metadata.
 
+The primary recommendation module is `advisor/itemAdvisor.js`.
+`advisor/apMidAdvisor.js` remains as a backward-compatible import shim.
+
 ## Champion-role builds
 
 Build definitions live in `data/builds/championBuilds.json`. Each champion can define one or more supported roles:

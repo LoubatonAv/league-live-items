@@ -1,0 +1,23 @@
+{
+  "name": "veigar_tank_frontline",
+  "description": "Veigar should solve a durable MR-stacking frontline before adding more raw AP.",
+  "champion": "Veigar",
+  "role": "MIDDLE",
+  "ownedItems": ["Rod of Ages", "Seraph's Embrace", "Rabadon's Deathcap"],
+  "gameContext": {
+    "gameTime": 2050,
+    "currentGold": 1450,
+    "level": 16,
+    "kills": 5,
+    "deaths": 3,
+    "assists": 7
+  },
+  "enemyPlayers": [
+    { "champion": "Ornn", "items": ["Force of Nature", "Kaenic Rookern"] },
+    { "champion": "Nautilus", "items": ["Abyssal Mask"] },
+    { "champion": "Vi", "items": ["Mercury's Treads", "Sterak's Gage"] },
+    { "champion": "Jinx", "items": [] },
+    { "champion": "Syndra", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Void Staff", "Cryptbloom"]
+}

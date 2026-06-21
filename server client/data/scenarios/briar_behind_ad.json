@@ -1,0 +1,23 @@
+{
+  "name": "briar_behind_ad",
+  "description": "A behind Briar should stabilize with physical durability instead of greedily continuing damage.",
+  "champion": "Briar",
+  "role": "JUNGLE",
+  "ownedItems": ["Stridebreaker", "Sundered Sky"],
+  "gameContext": {
+    "gameTime": 1500,
+    "currentGold": 950,
+    "level": 12,
+    "kills": 1,
+    "deaths": 7,
+    "assists": 3
+  },
+  "enemyPlayers": [
+    { "champion": "Vi", "items": ["Death's Dance"] },
+    { "champion": "Jinx", "items": ["Infinity Edge"] },
+    { "champion": "Ornn", "items": ["Thornmail"] },
+    { "champion": "Lux", "items": [] },
+    { "champion": "Thresh", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Death's Dance", "Sterak's Gage", "Guardian Angel"]
+}

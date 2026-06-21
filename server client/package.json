@@ -1,7 +1,7 @@
 {
   "name": "server-client",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "import:builds": "node scripts/importBuilds.js",
     "debug:advice": "node advisor/debugRecommendations.js",
@@ -10,7 +10,7 @@
     "simulate": "node scripts/simulateRecommendations.js",
     "scenario:test": "node scripts/scenarioTest.js",
     "audit": "node scripts/auditRecommendations.js",
-    "check": "node --check server.js && node --check advisor/apMidAdvisor.js && node --check advisor/championBuilds.js && node --check advisor/championData.js && node --check advisor/itemSignals.js && node --check advisor/itemBuildPaths.js && node --check advisor/recommendationHistory.js && node --check advisor/recommendationTelemetry.js && node --check advisor/debugRecommendations.js && node --check advisor/validateBuilds.js && node --check scripts/lib/buildSchema.js && node --check scripts/importBuilds.js && node --check scripts/metaReport.js && node --check scripts/simulateRecommendations.js && node --check scripts/scenarioTest.js && node --check scripts/auditRecommendations.js && npm run validate:builds && npm run scenario:test",
+    "check": "node --check server.js && node --check advisor/itemAdvisor.js && node --check advisor/apMidAdvisor.js && node --check advisor/championBuilds.js && node --check advisor/championData.js && node --check advisor/itemSignals.js && node --check advisor/itemBuildPaths.js && node --check advisor/recommendationHistory.js && node --check advisor/recommendationTelemetry.js && node --check advisor/debugRecommendations.js && node --check advisor/validateBuilds.js && node --check scripts/lib/buildSchema.js && node --check scripts/importBuilds.js && node --check scripts/metaReport.js && node --check scripts/simulateRecommendations.js && node --check scripts/scenarioTest.js && node --check scripts/auditRecommendations.js && npm run validate:builds && npm run scenario:test",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

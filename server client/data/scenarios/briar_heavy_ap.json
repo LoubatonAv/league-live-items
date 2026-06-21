@@ -1,0 +1,23 @@
+{
+  "name": "briar_heavy_ap",
+  "description": "Briar should buy magic durability into three meaningful AP threats.",
+  "champion": "Briar",
+  "role": "JUNGLE",
+  "ownedItems": ["Stridebreaker", "Sundered Sky"],
+  "gameContext": {
+    "gameTime": 1550,
+    "currentGold": 1200,
+    "level": 13,
+    "kills": 4,
+    "deaths": 4,
+    "assists": 5
+  },
+  "enemyPlayers": [
+    { "champion": "Syndra", "items": ["Rabadon's Deathcap"] },
+    { "champion": "Ahri", "items": ["Horizon Focus"] },
+    { "champion": "Nautilus", "items": ["Abyssal Mask"] },
+    { "champion": "Ornn", "items": [] },
+    { "champion": "Jinx", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Maw of Malmortius", "Spirit Visage", "Sterak's Gage"]
+}

@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 const https = require("https");
-const { getBuildAdvice } = require("./advisor/apMidAdvisor");
+const { getBuildAdvice, resolveRole } = require("./advisor/itemAdvisor");
 const {
   logRecommendationTelemetry,
 } = require("./advisor/recommendationTelemetry");
@@ -166,6 +166,40 @@ const enrichItem = (item) => {
   };
 };
 
+const getSortedItems = (player) => {
+  return [...(player?.items || [])]
+    .sort((a, b) => a.slot - b.slot)
+    .map(enrichItem);
+};
+
+const getPlayerName = (player) => {
+  return player?.summonerName || player?.riotIdGameName || "Unknown Player";
+};
+
+const buildPlayerView = ({
+  player,
+  role = null,
+  currentGold = null,
+}) => {
+  const items = getSortedItems(player);
+
+  return {
+    summonerName: getPlayerName(player),
+    championName: player?.championName || "Unknown Champion",
+    role,
+    team: player?.team || null,
+    currentGold,
+    items,
+  };
+};
+
+const buildEnemyPlayerView = (player) => ({
+  summonerName: getPlayerName(player),
+  championName: player?.championName || "Unknown Champion",
+  team: player?.team || null,
+  items: getSortedItems(player),
+});
+
 app.get("/api/health", (req, res) => {
   res.json({
     ok: true,
@@ -189,8 +223,8 @@ app.get("/api/items/:itemId", (req, res) => {
 
 app.get("/api/players", async (req, res) => {
   try {
-    const snapshot = await getGameSnapshot();
-    const { playerList, activePlayerName } = snapshot;
+    const snapshot = await getGameSnapshot({ includeActivePlayer: true });
+    const { playerList, activePlayerName, currentGold } = snapshot;
 
     const currentPlayer = findCurrentPlayer(playerList, activePlayerName);
 
@@ -198,6 +232,7 @@ app.get("/api/players", async (req, res) => {
       return res.json({
         myTeam: null,
         myPlayer: null,
+        currentGold,
         enemyPlayers: [],
         debug: {
           message: "Could not determine current player",
@@ -214,34 +249,25 @@ app.get("/api/players", async (req, res) => {
     }
 
     const myTeam = currentPlayer.team;
+    const role = resolveRole(
+      currentPlayer.championName,
+      currentPlayer.position || currentPlayer.role,
+    );
 
-    const myPlayer = {
-      summonerName:
-        currentPlayer.summonerName ||
-        currentPlayer.riotIdGameName ||
-        "Unknown Player",
-      championName: currentPlayer.championName || "Unknown Champion",
-      team: currentPlayer.team,
-      items: (currentPlayer.items || [])
-        .sort((a, b) => a.slot - b.slot)
-        .map(enrichItem),
-    };
+    const myPlayer = buildPlayerView({
+      player: currentPlayer,
+      role,
+      currentGold,
+    });
 
     const enemyPlayers = playerList
       .filter((player) => player.team !== myTeam)
-      .map((player) => ({
-        summonerName:
-          player.summonerName || player.riotIdGameName || "Unknown Player",
-        championName: player.championName || "Unknown Champion",
-        team: player.team,
-        items: (player.items || [])
-          .sort((a, b) => a.slot - b.slot)
-          .map(enrichItem),
-      }));
+      .map(buildEnemyPlayerView);
 
     res.json({
       myTeam,
       myPlayer,
+      currentGold,
       ddragonVersion: latestDdragonVersion,
       enemyPlayers,
     });
@@ -276,19 +302,9 @@ app.get("/api/advice", async (req, res) => {
 
     const enemyPlayers = playerList
       .filter((player) => player.team !== myTeam)
-      .map((player) => ({
-        summonerName:
-          player.summonerName || player.riotIdGameName || "Unknown Player",
-        championName: player.championName || "Unknown Champion",
-        team: player.team,
-        items: (player.items || [])
-          .sort((a, b) => a.slot - b.slot)
-          .map(enrichItem),
-      }));
+      .map(buildEnemyPlayerView);
 
-    const myItems = (currentPlayer.items || [])
-      .sort((a, b) => a.slot - b.slot)
-      .map(enrichItem);
+    const myItems = getSortedItems(currentPlayer);
 
     const championName =
       req.query.championName || currentPlayer.championName || "LeBlanc";
@@ -312,11 +328,14 @@ app.get("/api/advice", async (req, res) => {
       currentGold,
       gameContext,
       itemDatabase,
-      historyKey: `${
-        currentPlayer.summonerName ||
-        currentPlayer.riotIdGameName ||
-        "current-player"
-      }:${championName}:${role || "default"}`,
+      historyKey: `${getPlayerName(currentPlayer)}:${championName}:${
+        role || "default"
+      }`,
+    });
+    const myPlayer = buildPlayerView({
+      player: currentPlayer,
+      role: advice.role,
+      currentGold: advice.currentGold,
     });
 
     logRecommendationTelemetry({
@@ -330,9 +349,12 @@ app.get("/api/advice", async (req, res) => {
       },
     });
 
+    // Keep the existing root fields for API compatibility. New clients should
+    // consume the canonical recommendation payload from `advice`.
     res.json({
       championName,
       role: advice.role,
+      myPlayer,
       currentItems: myItems,
       gameTime: advice.gameTime,
       currentGold: advice.currentGold,
@@ -341,6 +363,8 @@ app.get("/api/advice", async (req, res) => {
       deaths: advice.deaths,
       assists: advice.assists,
       recommendationChange: advice.recommendationChange,
+      recommendationExplanation:
+        advice.nextItem.best?.explanation || null,
       advice,
     });
   } catch (error) {

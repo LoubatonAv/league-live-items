@@ -1,0 +1,23 @@
+{
+  "name": "leblanc_four_squishies",
+  "description": "LeBlanc should favor immediate burst into four fragile targets.",
+  "champion": "LeBlanc",
+  "role": "MIDDLE",
+  "ownedItems": ["Luden's Companion"],
+  "gameContext": {
+    "gameTime": 980,
+    "currentGold": 1250,
+    "level": 11,
+    "kills": 4,
+    "deaths": 2,
+    "assists": 3
+  },
+  "enemyPlayers": [
+    { "champion": "Jinx", "items": [] },
+    { "champion": "Syndra", "items": [] },
+    { "champion": "Ahri", "items": [] },
+    { "champion": "Lux", "items": [] },
+    { "champion": "Vi", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Shadowflame", "Stormsurge"]
+}

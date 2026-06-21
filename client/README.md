@@ -1,16 +1,20 @@
-# React + Vite
+# League Item Coach client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React/Vite client for the live item advisor.
 
-Currently, two official plugins are available:
+The main UI has three product views:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Current champion and next-item recommendation from `/api/advice`.
+- Enemy inventory from `/api/players`.
+- Item details for the selected inventory item.
 
-## React Compiler
+Recommendation diagnostics are available in the collapsed development section
+inside the recommendation card.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Commands
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```powershell
+npm.cmd run dev
+npm.cmd run lint
+npm.cmd run build
+```

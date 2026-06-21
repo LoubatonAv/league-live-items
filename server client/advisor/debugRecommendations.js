@@ -1,5 +1,5 @@
 const mockData = require("../mockGameData.json");
-const { getBuildAdvice } = require("./apMidAdvisor");
+const { getBuildAdvice } = require("./itemAdvisor");
 const {
   CHAMPION_BUILDS,
   getChampionBuild,

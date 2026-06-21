@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const mockData = require("../mockGameData.json");
-const { getBuildAdvice } = require("../advisor/apMidAdvisor");
+const { getBuildAdvice } = require("../advisor/itemAdvisor");
 const { CHAMPION_BUILDS } = require("../advisor/championBuilds");
 
 const workspaceRoot = path.resolve(__dirname, "..");

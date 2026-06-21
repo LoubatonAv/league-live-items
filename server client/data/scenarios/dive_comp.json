@@ -11,5 +11,5 @@
     { "champion": "Ahri", "items": [] },
     { "champion": "Jinx", "items": [] }
   ],
-  "expectedRecommendationCandidates": ["Zhonya's Hourglass", "Banshee's Veil", "Rabadon's Deathcap"]
+  "expectedRecommendationCandidates": ["Zhonya's Hourglass", "Banshee's Veil"]
 }

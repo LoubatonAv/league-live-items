@@ -1,6 +1,6 @@
 const championMetadata = require("../data/champions/championMetadata.json");
 
-const AP_MID_ARCHETYPES = championMetadata.archetypes || {};
+const CHAMPION_ARCHETYPES = championMetadata.archetypes || {};
 const ENEMY_CHAMPION_PROFILES = championMetadata.enemyProfiles || {};
 
 const DEFAULT_ARCHETYPE = {
@@ -81,7 +81,7 @@ const ARCHETYPE_ITEM_RULES = {
 };
 
 const getChampionArchetype = (championName) => {
-  return AP_MID_ARCHETYPES[championName] || DEFAULT_ARCHETYPE;
+  return CHAMPION_ARCHETYPES[championName] || DEFAULT_ARCHETYPE;
 };
 
 const getEnemyChampionProfile = (championName) => {
@@ -110,7 +110,7 @@ const getArchetypeItemRules = (championName) => {
 
 module.exports = {
   CHAMPION_METADATA: championMetadata,
-  AP_MID_ARCHETYPES,
+  CHAMPION_ARCHETYPES,
   DEFAULT_ARCHETYPE,
   ENEMY_CHAMPION_PROFILES,
   ARCHETYPE_ITEM_RULES,

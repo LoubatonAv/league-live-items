@@ -1,0 +1,23 @@
+{
+  "name": "leblanc_moderate_mr",
+  "description": "LeBlanc should consider percentage penetration once several enemies have meaningful MR.",
+  "champion": "LeBlanc",
+  "role": "MIDDLE",
+  "ownedItems": ["Luden's Companion", "Shadowflame"],
+  "gameContext": {
+    "gameTime": 1650,
+    "currentGold": 1300,
+    "level": 14,
+    "kills": 4,
+    "deaths": 3,
+    "assists": 5
+  },
+  "enemyPlayers": [
+    { "champion": "Ornn", "items": ["Force of Nature"] },
+    { "champion": "Vi", "items": ["Mercury's Treads"] },
+    { "champion": "Nautilus", "items": ["Abyssal Mask"] },
+    { "champion": "Jinx", "items": [] },
+    { "champion": "Syndra", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Void Staff", "Cryptbloom", "Rabadon's Deathcap"]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "evelynn_heavy_cc",
+  "description": "Evelynn should favor Banshee's when one spell can stop her entry.",
+  "champion": "Evelynn",
+  "role": "JUNGLE",
+  "ownedItems": ["Lich Bane", "Sorcerer's Shoes", "Shadowflame"],
+  "gameContext": {
+    "gameTime": 1550,
+    "currentGold": 1200,
+    "level": 13,
+    "kills": 4,
+    "deaths": 4,
+    "assists": 3
+  },
+  "enemyPlayers": [
+    { "champion": "Nautilus", "items": ["Locket of the Iron Solari"] },
+    { "champion": "Syndra", "items": [] },
+    { "champion": "Ahri", "items": [] },
+    { "champion": "Ornn", "items": [] },
+    { "champion": "Jinx", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Banshee's Veil", "Zhonya's Hourglass"]
+}

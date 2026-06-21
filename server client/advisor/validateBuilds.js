@@ -1,5 +1,5 @@
 const mockData = require("../mockGameData.json");
-const { getBuildAdvice } = require("./apMidAdvisor");
+const { getBuildAdvice } = require("./itemAdvisor");
 const { getRecommendedComponent } = require("./itemBuildPaths");
 const { clearRecommendationHistory } = require("./recommendationHistory");
 const {
@@ -193,6 +193,35 @@ if (
   failures.push("Recommendation confidence band is invalid");
 }
 
+const progressionContributions =
+  progressionAdvice.nextItem.best.explanation?.contributions || [];
+const progressionContributionTotal = progressionContributions.reduce(
+  (sum, contribution) => sum + contribution.value,
+  0,
+);
+
+if (
+  progressionContributions.length === 0 ||
+  progressionContributions.some(
+    (contribution) =>
+      !contribution.source ||
+      typeof contribution.value !== "number" ||
+      !contribution.impact,
+  ) ||
+  progressionContributionTotal !== progressionAdvice.nextItem.best.score
+) {
+  failures.push("Recommendation score contributions are incomplete or invalid");
+}
+
+if (
+  !progressionAdvice.nextItem.best.explanation?.confidence?.summary ||
+  !Array.isArray(
+    progressionAdvice.nextItem.best.explanation?.confidence?.factors,
+  )
+) {
+  failures.push("Recommendation confidence explanation is missing");
+}
+
 const teamStyleAdvice = getBuildAdvice({
   championName: "LeBlanc",
   role: "MIDDLE",
@@ -251,11 +280,11 @@ if (
 clearRecommendationHistory();
 const changeHistoryKey = "validation:enemy-mr-change";
 const neutralEnemies = [
-  { championName: "Ornn", items: [] },
-  { championName: "Vi", items: [] },
-  { championName: "Nautilus", items: [] },
   { championName: "Jinx", items: [] },
   { championName: "Syndra", items: [] },
+  { championName: "Ahri", items: [] },
+  { championName: "Lux", items: [] },
+  { championName: "Xerath", items: [] },
 ];
 const mrEnemies = neutralEnemies.map((player, index) => {
   const mrItems = [

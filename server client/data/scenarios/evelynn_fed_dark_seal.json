@@ -1,0 +1,23 @@
+{
+  "name": "evelynn_fed_dark_seal",
+  "description": "A fed Evelynn with Dark Seal should strongly consider Mejai's against fragile targets.",
+  "champion": "Evelynn",
+  "role": "JUNGLE",
+  "ownedItems": ["Lich Bane", "Sorcerer's Shoes", "Dark Seal"],
+  "gameContext": {
+    "gameTime": 1100,
+    "currentGold": 1250,
+    "level": 12,
+    "kills": 9,
+    "deaths": 1,
+    "assists": 3
+  },
+  "enemyPlayers": [
+    { "champion": "Jinx", "items": [] },
+    { "champion": "Syndra", "items": [] },
+    { "champion": "Ahri", "items": [] },
+    { "champion": "Lux", "items": [] },
+    { "champion": "Vi", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Mejai's Soulstealer", "Shadowflame"]
+}

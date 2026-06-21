@@ -1,0 +1,23 @@
+{
+  "name": "veigar_heavy_dive",
+  "description": "Veigar should prioritize stasis when divers can reliably reach him.",
+  "champion": "Veigar",
+  "role": "MIDDLE",
+  "ownedItems": ["Rod of Ages", "Seraph's Embrace"],
+  "gameContext": {
+    "gameTime": 1500,
+    "currentGold": 1200,
+    "level": 13,
+    "kills": 2,
+    "deaths": 6,
+    "assists": 5
+  },
+  "enemyPlayers": [
+    { "champion": "Vi", "items": ["Sterak's Gage"] },
+    { "champion": "Nautilus", "items": ["Locket of the Iron Solari"] },
+    { "champion": "Ornn", "items": ["Sunfire Aegis"] },
+    { "champion": "Ahri", "items": [] },
+    { "champion": "Jinx", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Zhonya's Hourglass"]
+}

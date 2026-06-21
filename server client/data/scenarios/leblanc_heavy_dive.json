@@ -1,0 +1,23 @@
+{
+  "name": "leblanc_heavy_dive",
+  "description": "LeBlanc should buy protection when repeated engage prevents safe assassination attempts.",
+  "champion": "LeBlanc",
+  "role": "MIDDLE",
+  "ownedItems": ["Luden's Companion", "Shadowflame"],
+  "gameContext": {
+    "gameTime": 1450,
+    "currentGold": 1100,
+    "level": 13,
+    "kills": 3,
+    "deaths": 5,
+    "assists": 4
+  },
+  "enemyPlayers": [
+    { "champion": "Vi", "items": ["Sterak's Gage"] },
+    { "champion": "Nautilus", "items": ["Locket of the Iron Solari"] },
+    { "champion": "Ornn", "items": ["Sunfire Aegis"] },
+    { "champion": "Ahri", "items": [] },
+    { "champion": "Jinx", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Banshee's Veil"]
+}

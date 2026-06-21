@@ -1,0 +1,23 @@
+{
+  "name": "briar_snowballing",
+  "description": "A snowballing Briar should continue into her strongest skirmish spike.",
+  "champion": "Briar",
+  "role": "JUNGLE",
+  "ownedItems": ["Stridebreaker"],
+  "gameContext": {
+    "gameTime": 1050,
+    "currentGold": 1350,
+    "level": 12,
+    "kills": 8,
+    "deaths": 1,
+    "assists": 4
+  },
+  "enemyPlayers": [
+    { "champion": "Jinx", "items": [] },
+    { "champion": "Syndra", "items": [] },
+    { "champion": "Ahri", "items": [] },
+    { "champion": "Vi", "items": [] },
+    { "champion": "Nautilus", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Sundered Sky", "Black Cleaver"]
+}

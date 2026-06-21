@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { getBuildAdvice } = require("../advisor/apMidAdvisor");
+const { getBuildAdvice } = require("../advisor/itemAdvisor");
 const { clearRecommendationHistory } = require("../advisor/recommendationHistory");
 
 const workspaceRoot = path.resolve(__dirname, "..");
@@ -22,13 +22,27 @@ const ITEM_STATS = {
   "Ruby Crystal": { FlatHPPoolMod: 150 },
   "Hollow Radiance": { FlatHPPoolMod: 400, FlatSpellBlockMod: 40 },
   "Maw of Malmortius": { FlatSpellBlockMod: 40 },
+  Thornmail: { FlatArmorMod: 75 },
+  "Frozen Heart": { FlatArmorMod: 75 },
+  "Death's Dance": { FlatArmorMod: 50 },
+};
+
+const ITEM_GOLD = {
+  "Doran's Ring": 400,
+  "Doran's Shield": 450,
+  "Doran's Blade": 450,
+  "Dark Seal": 350,
+  "Sorcerer's Shoes": 1100,
+  "Celestial Opposition": 400,
+  "Dream Maker": 400,
+  "World Atlas": 400,
 };
 
 const completedItem = (name) => ({
   displayName: name,
   meta: {
     name,
-    gold: { total: 3000 },
+    gold: { total: ITEM_GOLD[name] || 3000 },
   },
 });
 
@@ -96,6 +110,27 @@ const runScenario = (scenario) => {
     advice.nextItem.best.confidenceBand,
   );
   const confidenceInconsistent = highConfidence && !passed;
+  const candidateScores = advice.nextItem.debug.candidateScores || [];
+  const bestCandidate = candidateScores[0] || null;
+  const secondCandidate = candidateScores[1] || null;
+  const scoreGap = Math.max(
+    0,
+    (bestCandidate?.score || 0) - (secondCandidate?.score || 0),
+  );
+  const suspicious = [];
+
+  if (!passed) {
+    suspicious.push("Recommendation is outside the expected expert candidate set.");
+  }
+  if (advice.nextItem.best.confidence >= 85 && scoreGap <= 5) {
+    suspicious.push("High confidence despite a narrow score gap.");
+  }
+  if (scoreGap <= 2) {
+    suspicious.push("Top candidates are effectively tied.");
+  }
+  if (confidenceInconsistent) {
+    suspicious.push("High-confidence recommendation failed the scenario.");
+  }
 
   return {
     scenario: scenario.name,
@@ -110,6 +145,11 @@ const runScenario = (scenario) => {
     stable,
     perturbedActual: perturbedAdvice.nextItem.best.item,
     confidenceInconsistent,
+    scoreGap,
+    scoreBreakdown: bestCandidate?.scoreBreakdown || {},
+    explanation: advice.nextItem.best.explanation || null,
+    topCandidates: candidateScores.slice(0, 4),
+    suspicious,
     enemyStyle: advice.nextItem.debug.teamStyle.primary,
     buildPhase: advice.nextItem.buildPath.currentBuildPhase,
     targetItem: advice.nextItem.buildPath.currentTargetItem,

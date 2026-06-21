@@ -1,0 +1,23 @@
+{
+  "name": "leona_heavy_ad",
+  "description": "Leona should prioritize armor utility into sustained physical damage.",
+  "champion": "Leona",
+  "role": "UTILITY",
+  "ownedItems": ["Celestial Opposition", "Locket of the Iron Solari"],
+  "gameContext": {
+    "gameTime": 1550,
+    "currentGold": 1050,
+    "level": 11,
+    "kills": 1,
+    "deaths": 4,
+    "assists": 13
+  },
+  "enemyPlayers": [
+    { "champion": "Jinx", "items": ["Infinity Edge", "Kraken Slayer"] },
+    { "champion": "Vi", "items": ["Death's Dance"] },
+    { "champion": "Ornn", "items": ["Thornmail"] },
+    { "champion": "Lux", "items": [] },
+    { "champion": "Thresh", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Frozen Heart", "Thornmail"]
+}

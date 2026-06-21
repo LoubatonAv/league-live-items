@@ -1,0 +1,23 @@
+{
+  "name": "briar_armor_stack",
+  "description": "Briar should prioritize Black Cleaver when multiple enemies have armor.",
+  "champion": "Briar",
+  "role": "JUNGLE",
+  "ownedItems": ["Stridebreaker", "Sundered Sky"],
+  "gameContext": {
+    "gameTime": 1650,
+    "currentGold": 1300,
+    "level": 14,
+    "kills": 4,
+    "deaths": 3,
+    "assists": 5
+  },
+  "enemyPlayers": [
+    { "champion": "Ornn", "items": ["Thornmail", "Frozen Heart"] },
+    { "champion": "Vi", "items": ["Death's Dance"] },
+    { "champion": "Nautilus", "items": ["Frozen Heart"] },
+    { "champion": "Jinx", "items": [] },
+    { "champion": "Syndra", "items": [] }
+  ],
+  "expectedRecommendationCandidates": ["Black Cleaver"]
+}
