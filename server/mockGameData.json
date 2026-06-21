@@ -9,7 +9,11 @@
       "championName": "LeBlanc",
       "level": 11,
       "scores": { "kills": 4, "deaths": 2, "assists": 5 },
-      "items": [{ "itemID": 1056, "displayName": "Doran's Ring", "slot": 0 }]
+      "items": [
+        { "itemID": 1056, "displayName": "Doran's Ring", "slot": 0 },
+        { "itemID": 3089, "displayName": "Rabadon's Deathcap", "slot": 1 },
+        { "itemID": 6655, "displayName": "Luden's Companion", "slot": 2 }
+      ]
     },
     {
       "summonerName": "OrderJungle",

@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 const https = require("https");
+const fs = require("fs/promises");
+const path = require("path");
 const { getBuildAdvice, resolveRole } = require("./advisor/itemAdvisor");
 const {
   logRecommendationTelemetry,
@@ -9,11 +11,67 @@ const {
 
 const app = express();
 const PORT = 3001;
+const MOCK_DATA_PATH = path.join(__dirname, "mockGameData.json");
+const SCENARIOS_PATH = path.join(__dirname, "data", "scenarios");
+const MOCK_SCENARIOS = {
+  heavy_mr: { label: "Heavy MR", file: "heavy_mr.json" },
+  heavy_hp: { label: "Heavy HP", file: "heavy_hp.json" },
+  dive: { label: "Dive", file: "dive_comp.json" },
+  poke: { label: "Poke", file: "poke_comp.json" },
+  squishy: { label: "Squishy", file: "squishy_comp.json" },
+  shield: { label: "Shield", file: "shield_comp.json" },
+};
+const SCENARIO_ITEM_ALIASES = {
+  "Luden's Companion": 6655,
+};
 
 app.use(cors());
+app.use(express.json());
 
 const USE_MOCK = String(process.env.USE_MOCK || "").toLowerCase() === "true";
-const mockData = require("./mockGameData.json");
+let selectedMockScenario = null;
+
+const readMockData = async () => {
+  let contents;
+
+  try {
+    contents = await fs.readFile(MOCK_DATA_PATH, "utf8");
+  } catch (error) {
+    const mockError = new Error(`Could not read ${MOCK_DATA_PATH}: ${error.message}`);
+    mockError.code = "MOCK_DATA_READ_ERROR";
+    throw mockError;
+  }
+
+  try {
+    return JSON.parse(contents);
+  } catch (error) {
+    const mockError = new Error(
+      `Invalid JSON in ${MOCK_DATA_PATH}: ${error.message}`,
+    );
+    mockError.code = "MOCK_DATA_INVALID_JSON";
+    throw mockError;
+  }
+};
+
+const readJsonFile = async (filePath, description) => {
+  let contents;
+
+  try {
+    contents = await fs.readFile(filePath, "utf8");
+  } catch (error) {
+    const dataError = new Error(`Could not read ${description}: ${error.message}`);
+    dataError.code = "MOCK_DATA_READ_ERROR";
+    throw dataError;
+  }
+
+  try {
+    return JSON.parse(contents);
+  } catch (error) {
+    const dataError = new Error(`Invalid JSON in ${description}: ${error.message}`);
+    dataError.code = "MOCK_DATA_INVALID_JSON";
+    throw dataError;
+  }
+};
 
 const leagueApi = axios.create({
   baseURL: "https://127.0.0.1:2999/liveclientdata",
@@ -29,7 +87,7 @@ const ddragonApi = axios.create({
 });
 
 const getGameSnapshot = async ({ includeActivePlayer = false } = {}) => {
-  if (!USE_MOCK) {
+  if (!USE_MOCK && !selectedMockScenario) {
     try {
       const requests = [
         leagueApi.get("/playerlist"),
@@ -60,6 +118,10 @@ const getGameSnapshot = async ({ includeActivePlayer = false } = {}) => {
     }
   }
 
+  const mockData = selectedMockScenario
+    ? await readSelectedScenarioData()
+    : await readMockData();
+
   return {
     mode: "mock",
     playerList: mockData.playerList || [],
@@ -72,6 +134,7 @@ const getGameSnapshot = async ({ includeActivePlayer = false } = {}) => {
 
 let latestDdragonVersion = "16.5.1";
 let itemDatabase = {};
+let itemDatabaseByName = {};
 
 const getLatestDdragonVersion = async () => {
   try {
@@ -125,6 +188,57 @@ const buildItemDatabase = (rawItemData, version) => {
   return db;
 };
 
+const buildScenarioItem = (itemName, slot) => {
+  const itemMeta =
+    itemDatabaseByName[itemName.toLowerCase()] ||
+    itemDatabase[String(SCENARIO_ITEM_ALIASES[itemName])];
+
+  return {
+    itemID: itemMeta?.id || 0,
+    displayName: itemName,
+    slot,
+  };
+};
+
+const readSelectedScenarioData = async () => {
+  const scenarioConfig = MOCK_SCENARIOS[selectedMockScenario];
+  const scenarioPath = path.join(SCENARIOS_PATH, scenarioConfig.file);
+  const scenario = await readJsonFile(
+    scenarioPath,
+    `mock scenario ${scenarioConfig.file}`,
+  );
+  const context = scenario.gameContext || {};
+  const activePlayerName = `Scenario ${scenario.champion}`;
+
+  return {
+    activePlayerName,
+    currentGold: context.currentGold || 0,
+    gameTime: context.gameTime || 0,
+    playerList: [
+      {
+        summonerName: activePlayerName,
+        team: "ORDER",
+        championName: scenario.champion,
+        position: scenario.role,
+        role: scenario.role,
+        level: context.level || 0,
+        scores: {
+          kills: context.kills || 0,
+          deaths: context.deaths || 0,
+          assists: context.assists || 0,
+        },
+        items: (scenario.ownedItems || []).map(buildScenarioItem),
+      },
+      ...(scenario.enemyPlayers || []).map((player, index) => ({
+        summonerName: `ScenarioEnemy${index + 1}`,
+        team: "CHAOS",
+        championName: player.champion,
+        items: (player.items || []).map(buildScenarioItem),
+      })),
+    ],
+  };
+};
+
 const loadItemDatabase = async () => {
   try {
     latestDdragonVersion = await getLatestDdragonVersion();
@@ -134,6 +248,10 @@ const loadItemDatabase = async () => {
     );
 
     itemDatabase = buildItemDatabase(response.data.data, latestDdragonVersion);
+    itemDatabaseByName = Object.values(itemDatabase).reduce((index, item) => {
+      index[item.name.toLowerCase()] = item;
+      return index;
+    }, {});
 
     console.log(
       `Loaded ${Object.keys(itemDatabase).length} items from Data Dragon ${latestDdragonVersion}`,
@@ -203,9 +321,38 @@ const buildEnemyPlayerView = (player) => ({
 app.get("/api/health", (req, res) => {
   res.json({
     ok: true,
-    mode: USE_MOCK ? "mock" : "live-with-mock-fallback",
+    mode:
+      USE_MOCK || selectedMockScenario ? "mock" : "live-with-mock-fallback",
+    selectedMockScenario,
     ddragonVersion: latestDdragonVersion,
     itemCount: Object.keys(itemDatabase).length,
+  });
+});
+
+app.get("/api/mock/scenarios", (req, res) => {
+  res.json({
+    selectedScenario: selectedMockScenario,
+    scenarios: Object.entries(MOCK_SCENARIOS).map(([id, scenario]) => ({
+      id,
+      label: scenario.label,
+    })),
+  });
+});
+
+app.post("/api/mock/scenarios", (req, res) => {
+  const scenarioId = req.body?.scenario;
+
+  if (!MOCK_SCENARIOS[scenarioId]) {
+    return res.status(400).json({
+      error: "Unknown mock scenario",
+      availableScenarios: Object.keys(MOCK_SCENARIOS),
+    });
+  }
+
+  selectedMockScenario = scenarioId;
+
+  res.json({
+    selectedScenario: selectedMockScenario,
   });
 });
 
@@ -272,6 +419,13 @@ app.get("/api/players", async (req, res) => {
       enemyPlayers,
     });
   } catch (error) {
+    if (error.code?.startsWith("MOCK_DATA_")) {
+      return res.status(500).json({
+        error: "Could not load mock game data",
+        details: error.message,
+      });
+    }
+
     res.status(500).json({
       error: "Could not reach League Live Client Data API",
       details: error.message,
@@ -368,6 +522,13 @@ app.get("/api/advice", async (req, res) => {
       advice,
     });
   } catch (error) {
+    if (error.code?.startsWith("MOCK_DATA_")) {
+      return res.status(500).json({
+        error: "Could not load mock game data",
+        details: error.message,
+      });
+    }
+
     res.status(500).json({
       error: "Could not build item advice",
       details: error.message,

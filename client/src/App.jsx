@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { fetchAdvice, fetchPlayers } from "./api.js";
 import EnemyInventory from "./components/EnemyInventory.jsx";
 import ItemDetailsPanel from "./components/ItemDetailsPanel.jsx";
+import MockScenarioManager from "./components/MockScenarioManager.jsx";
 import SuggestedItemCard from "./components/SuggestedItemCard.jsx";
 
 const POLL_INTERVAL_MS = 2000;
@@ -15,52 +16,43 @@ const App = () => {
   const [playersError, setPlayersError] = useState("");
   const [adviceError, setAdviceError] = useState("");
 
+  const refresh = useCallback(async () => {
+    const [playersResult, adviceResult] = await Promise.allSettled([
+      fetchPlayers(),
+      fetchAdvice(),
+    ]);
+
+    if (playersResult.status === "fulfilled") {
+      setMyPlayer(playersResult.value.myPlayer || null);
+      setEnemyPlayers(playersResult.value.enemyPlayers || []);
+      setPlayersError("");
+    } else {
+      setPlayersError(
+        playersResult.reason?.message || "Could not load player inventory",
+      );
+    }
+
+    if (adviceResult.status === "fulfilled") {
+      setAdvice(adviceResult.value.advice || null);
+      setAdviceError("");
+    } else {
+      setAdviceError(
+        adviceResult.reason?.message || "Could not load recommendation",
+      );
+    }
+
+    setLoading(false);
+  }, []);
+
   useEffect(() => {
-    let active = true;
-    let refreshing = false;
-
-    const refresh = async () => {
-      if (refreshing) return;
-      refreshing = true;
-
-      const [playersResult, adviceResult] = await Promise.allSettled([
-        fetchPlayers(),
-        fetchAdvice(),
-      ]);
-
-      refreshing = false;
-      if (!active) return;
-
-      if (playersResult.status === "fulfilled") {
-        setMyPlayer(playersResult.value.myPlayer || null);
-        setEnemyPlayers(playersResult.value.enemyPlayers || []);
-        setPlayersError("");
-      } else {
-        setPlayersError(
-          playersResult.reason?.message || "Could not load player inventory",
-        );
-      }
-
-      if (adviceResult.status === "fulfilled") {
-        setAdvice(adviceResult.value.advice || null);
-        setAdviceError("");
-      } else {
-        setAdviceError(
-          adviceResult.reason?.message || "Could not load recommendation",
-        );
-      }
-
-      setLoading(false);
-    };
-
-    refresh();
+    const initialRefresh = setTimeout(refresh, 0);
     const interval = setInterval(refresh, POLL_INTERVAL_MS);
 
     return () => {
-      active = false;
+      clearTimeout(initialRefresh);
       clearInterval(interval);
     };
-  }, []);
+  }, [refresh]);
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
@@ -71,6 +63,8 @@ const App = () => {
         <p className="mb-8 text-sm text-slate-400">
           Live recommendation and enemy inventory
         </p>
+
+        <MockScenarioManager onScenarioChange={refresh} />
 
         <SuggestedItemCard
           myPlayer={myPlayer}
